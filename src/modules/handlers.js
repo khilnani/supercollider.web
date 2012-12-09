@@ -72,6 +72,7 @@ function process(response, postData) {
     	    
 					console.log("Saved to '" + scdFile + "'");
     	    
+    	    		//TODO need a timeout in case the process hangs
     	    		exec("sclang " + scdFile, function (error, stdout, stderr) {
     	    
     	    			if(error) throw error;
@@ -99,7 +100,7 @@ function render(response, postData) {
 	var stat = fs.statSync(audioFile);
     	    
 	response.writeHead(200, {
-		'Content-Type': 'audio/x-aiff',
+		'Content-Type': 'audio/wav',
 		'Content-Length': stat.size
 	});
 		    
