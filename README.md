@@ -6,12 +6,12 @@ Node.js based web application to create audio files for SuperCollider tweets. Po
 
 Thanks to the following people for feedback, suggestions, technical insight and sanity checks. In alphabetical order -
 
-- Batuhan Bozkurt - [http://www.earslap.com]
-- Charlie Roberts - [http://www.charlie-roberts.com]
-- crucialfelix - [https://github.com/crucialfelix], [https://soundcloud.com/crucialfelix]
+- Batuhan Bozkurt - http://www.earslap.com
+- Charlie Roberts - http://www.charlie-roberts.com
+- crucialfelix - https://github.com/crucialfelix, https://soundcloud.com/crucialfelix
 - Metin Yerlikaya
-- Nicholas Starke - [http://www.nickstarke.com], [https://soundcloud.com/nicholas-starke]
-- Schemawound - [http://schemawound.com/], [https://soundcloud.com/schemawound]
+- Nicholas Starke - http://www.nickstarke.com, https://soundcloud.com/nicholas-starke
+- Schemawound - http://schemawound.com/, https://soundcloud.com/schemawound
 
 
 Instructions
