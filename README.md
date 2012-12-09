@@ -11,7 +11,7 @@ Requirements
 Instructions
 =========
 - Ensure /tmp/ is aviable as Read/Write
-- Once the code has been pulled, run: node index.js
+- Once the code has been pulled, run: <code>node index.js</code>
 - Via a web browser, navigate to http://localhost:4040/
 
 Features
