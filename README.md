@@ -44,9 +44,10 @@ Technical Notes
 Overview
 ---------
 
-The application allows a user to submit SuperCollider code via a form. 
-The submitted code is then inserted into a template that facilitates command line execution of SuperCollider (sclang) to generate audio in 16bit 44.1kHz AIFF format.
-Via a post-redirect-get pattern, audio is streamed to the browser.
+- The application allows a user to submit SuperCollider code via a form. 
+- The submitted code is then inserted into a template that facilitates command line execution of SuperCollider (sclang) to generate audio.
+- Audio is generated in 16bit 44.1kHz AIFF format.
+- Via a post-redirect-get pattern, audio is streamed to the browser.
 
 Codebase
 ---------
