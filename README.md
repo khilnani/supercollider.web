@@ -68,6 +68,6 @@ Codebase
 
 - sample_output: Sample SuperCollider code that is created, along with the resulting audio.
 - test: Reference SuperCollider code that is used for standalone testing of SC integration. 
-- leftovers: Experiments, abandoned ideas etc. that may of interest.
+- leftovers: Experiments, abandoned ideas etc. that may be of interest.
 
 
