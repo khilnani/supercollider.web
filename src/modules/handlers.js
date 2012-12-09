@@ -99,7 +99,7 @@ function render(response, postData) {
 	var stat = fs.statSync(audioFile);
     	    
 	response.writeHead(200, {
-		'Content-Type': 'audio/aiff',
+		'Content-Type': 'audio/x-aiff',
 		'Content-Length': stat.size
 	});
 		    
