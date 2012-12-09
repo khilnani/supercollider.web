@@ -1,0 +1,1 @@
+play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.kr(0.5.rand).exprange(1,9)}!8)).tanh/4}
