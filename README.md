@@ -17,7 +17,7 @@ Instructions
 Features
 =========
 
-> *NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.*
+> **NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.**
 
 Current Features
 ---------
