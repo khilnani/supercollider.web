@@ -17,15 +17,17 @@ Instructions
 Features
 =========
 
-NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.
+> NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.
 
 Current Features
+---------
 
 - Web based entry of SuperCollider code
 - Generation of Audio based on command line execution of 'sclang'
 - Streaming of generated audio to the browser
 
 Planned Features
+---------
 
 - SoundCloud integration to upload/store resulting audio.
 - Twitter integration to post resulting tweet.
@@ -40,12 +42,14 @@ Technical Notes
 =========
 
 Overview
+---------
 
 The application allows a user to submit SuperCollider code via a form. 
 The submitted code is then inserted into a template that facilitates command line execution of SuperCollider (sclang) to generate audio in 16bit 44.1kHz AIFF format.
 Via a post-redirect-get pattern, audio is streamed to the browser.
 
 Codebase
+---------
 
 - Sample SuperCollider code that is created along with the resulting audio file is located in: sample_output
 - Reference SuperCollider code that is used for standalone testing of SC integration is located in: test
