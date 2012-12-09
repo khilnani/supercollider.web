@@ -3,13 +3,27 @@ sctweeter
 
 Node.js based web application to create audio files for SuperCollider tweets. Potentially may include SoundCloud &amp; Twitter integration.
 
-Requirements
-=========
-- Node.js
-- SuperCollider
+
+Thanks to the following people for feedback, suggestions, technical insight and sanity checks. In alphabetical order -
+
+- Batuhan Bozkurt - [http://www.earslap.com]
+- Charlie Roberts - [http://www.charlie-roberts.com]
+- crucialfelix - [https://github.com/crucialfelix], [https://soundcloud.com/crucialfelix]
+- Metin Yerlikaya
+- Nicholas Starke - [http://www.nickstarke.com], [https://soundcloud.com/nicholas-starke]
+- Schemawound - [http://schemawound.com/], [https://soundcloud.com/schemawound]
+
 
 Instructions
 =========
+
+Requirements
+---------
+- Node.js
+- SuperCollider
+
+Installation
+---------
 - Ensure /tmp/ is aviable as Read/Write
 - Once the code has been pulled, run: <code>node index.js</code>
 - Via a web browser, navigate to http://localhost:4040/
@@ -52,7 +66,8 @@ Overview
 Codebase
 ---------
 
-- Sample SuperCollider code that is created along with the resulting audio file is located in: sample_output
-- Reference SuperCollider code that is used for standalone testing of SC integration is located in: test
+- sample_output: Sample SuperCollider code that is created, along with the resulting audio.
+- test: Reference SuperCollider code that is used for standalone testing of SC integration. 
+- leftovers: Experiments, abandoned ideas etc. that may of interest.
 
 
