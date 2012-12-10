@@ -1,7 +1,7 @@
 var http = require("http");
 var url = require("url");
 
-function start(route, handle) {
+function start(port, route, handle) {
   function onRequest(request, response) {
     var postData = "";
     var pathname = url.parse(request.url).pathname;
@@ -21,8 +21,8 @@ function start(route, handle) {
 
   }
 
-  http.createServer(onRequest).listen(4040);
-  console.log("Server has started.");
+  http.createServer(onRequest).listen(port);
+  console.log("Server has started on port: " + port);
 }
 
 exports.start = start;
