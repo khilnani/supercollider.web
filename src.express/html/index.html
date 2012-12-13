@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="/css/app.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+        <script src="/js/app.js"></script>
+    </head>
+    <body>
+    
+
+    
+<div data-role="page" id="page1">
+	<div data-role="content">
+		<form action="/process" method="post" data-ajax="false">
+               <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="sccode">
+                            SuperCollider Code
+                        </label>
+                        <textarea name="sccode" id="sccode" placeholder="" data-mini="true">
+play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.kr(0.5.rand).exprange(1,9)}!8)).tanh/4};
+                        </textarea>
+                    </fieldset>
+                </div>
+                <input type="submit" data-theme="a" value="Submit" />
+        </form>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="log">
+                            Log
+                        </label>
+                        <textarea name="log" id="log" placeholder="" data-mini="true">
+                        </textarea>
+                    </fieldset>
+                </div>
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#page1" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">Code</a></li>
+					<li><a href="#page2" data-transition="fade" data-theme="a">SoundCloud</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+	</div>
+</div>
+<div data-role="page" id="page2">
+	<div data-role="content">
+		<form action="form.php" method="post">
+			<div data-role="fieldcontain">
+			    <label for="basic">Username:</label>
+			    <input type="text" name="name" id="basic" value="" data-mini="true" />
+			    <label for="basic">Password:</label>
+			    <input type="password" name="password" id="basic" value="" data-mini="true" />
+    		</div>
+			    
+			 <input type="submit" data-theme="a" value="Submit" data-mini="true" />
+
+	    </form>
+	    
+		<form action="form.php" method="post">
+			<div data-role="fieldcontain">
+			    <label for="basic">Name:</label>
+			    <input type="text" name="name" id="basic" value="" data-mini="true" />
+    		</div>
+			    
+			 <input type="submit" data-theme="a" value="Upload" data-mini="true" />
+
+	    </form>
+    
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#page1" data-transition="fade" data-theme="a">Code</a></li>
+					<li><a href="#page2" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">SoundCloud</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
+
+	</div>
+</div>
+
+        <script>
+            //App custom javascript
+        </script>
+    </body>
+</html>
+
+
