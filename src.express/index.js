@@ -11,7 +11,11 @@ app.configure(function () {
 app.post('/process', handlers.process);
 app.get('/render', handlers.render);
 
+var port = process.argv[2];
 
-app.listen(8081);
-console.log('Listening on port 8081');
-
+if(port) {
+	app.listen(port);
+	console.log('Listening on port: ' + port);
+} else {
+	console.log('USAGE node index PORT');
+}
