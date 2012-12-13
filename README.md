@@ -25,8 +25,7 @@ Requirements
 Installation
 ---------
 - Ensure /tmp/ is aviable as Read/Write
-- Once the code has been pulled, run: <code>node index.js</code>
-- Via a web browser, navigate to http://localhost:4040/
+- Once the code has been pulled,ange dir to src.express and run: <code>node index [PORT]</code>
 
 Features
 =========
