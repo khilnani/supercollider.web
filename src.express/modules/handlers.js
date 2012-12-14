@@ -3,14 +3,17 @@ var fs = require('fs');
 
 
 var scdFile = "/tmp/upload.scd";
-var audioFile = "/tmp/audio.aiff";
+var audioFile = "/tmp/";
 var sc_startFile = "./templates/sc_start.scd";
 var sc_midFile = "./templates/sc_mid.scd";	
 var sc_endFile = "./templates/sc_end.scd";
 
 
 function process(request, response) {
-	console.log("POST /process");  	
+
+	var guid = (new Date()).getTime();
+
+	console.log("POST /process guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -19,7 +22,9 @@ function process(request, response) {
 	var sc_txt = request.body.sccode;
 	var sc_data = "";
 	
+	
 	console.log("sccode: " + sc_txt);
+	console.log("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
 		if (err) throw console.error(err);
@@ -39,7 +44,7 @@ function process(request, response) {
 //				console.log(data);
 				sc_end = data;
 				
-				sc_params = "~path = \"" + audioFile + "\";";
+				sc_params = "~path = \"" + audioFile + guid + ".aiff\";";
 				sc_params += "~length = 10;";
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
@@ -54,9 +59,12 @@ function process(request, response) {
     	    
     	    			if(error) throw error;
     	    			
-						console.log("redirecting...");
-    	    			
-    	    			response.redirect('/render');
+    	    			var r = {
+    	    				log: stdout,
+    	    				guid: guid
+    	    			};
+    	    			    	    			
+    	    			response.json(r);
 
 					}); 
 
@@ -71,10 +79,15 @@ function process(request, response) {
 
 }
 
+
 function render(request, response) {
-  	console.log("/render");
   	
-	response.download(audioFile, "audio.aiff", function (err) {
+  	var guid = request.query.guid;
+
+  	console.log("/render guid=" + guid);
+
+  	
+	response.download(audioFile + guid + ".aiff", guid + ".aiff", function (err) {
 		if (err) throw console.error(err);			
 	});
 
