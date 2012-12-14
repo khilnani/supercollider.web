@@ -22,19 +22,19 @@ function process(request, response) {
 	console.log("sccode: " + sc_txt);
 	
 	fs.readFile(sc_startFile, function (err, data) {
-		if (err) throw err;
+		if (err) throw console.error(err);
 
 		console.log(data);
 		sc_start = data;
 
 		fs.readFile(sc_midFile, function (err, data) {
-			if (err) throw err;
+			if (err) throw console.error(err);
 
 			console.log(data);
 			sc_mid = data;
 			
 			fs.readFile(sc_endFile, function (err, data) {
-				if (err) throw err;
+				if (err) throw console.error(err);
 
 //				console.log(data);
 				sc_end = data;
@@ -45,7 +45,7 @@ function process(request, response) {
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
 				fs.writeFile(scdFile, sc_data, function(err) {
-			    	if(err) throw error;   	
+			    	if(err) throw console.error(err);   	
     	    
 					console.log("Saved to '" + scdFile + "'");
     	    
@@ -56,9 +56,7 @@ function process(request, response) {
     	    			
 						console.log("redirecting...");
     	    			
-						response.statusCode = 302;
-						response.setHeader("Location", "/render");
-						response.end();
+    	    			response.redirect('/render');
 
 					}); 
 
@@ -76,7 +74,9 @@ function process(request, response) {
 function render(request, response) {
   	console.log("/render");
   	
-	response.download(audioFile);
+	response.download(audioFile, "audio.aiff", function (err) {
+		if (err) throw console.error(err);			
+	});
 
   	
 }
