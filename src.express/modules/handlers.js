@@ -2,7 +2,7 @@ var exec = require("child_process").exec;
 var fs = require('fs');
 
 
-var scdFile = "/tmp/upload.scd";
+var scdFile = "/tmp/";
 var audioFile = "/tmp/";
 var sc_startFile = "./templates/sc_start.scd";
 var sc_midFile = "./templates/sc_mid.scd";	
@@ -49,13 +49,13 @@ function process(request, response) {
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
-				fs.writeFile(scdFile, sc_data, function(err) {
+				fs.writeFile(scdFile + guid + ".scd", sc_data, function(err) {
 			    	if(err) throw console.error(err);   	
     	    
-					console.log("Saved to '" + scdFile + "'");
+					console.log("Saved to '" + scdFile + guid + ".scd'");
     	    
     	    		//TODO need a timeout in case the process hangs
-    	    		exec("sclang " + scdFile, function (error, stdout, stderr) {
+    	    		exec("sclang " + scdFile + guid + ".scd", function (error, stdout, stderr) {
     	    
     	    			if(error) throw error;
     	    			
