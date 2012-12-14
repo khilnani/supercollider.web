@@ -26,6 +26,9 @@ Installation
 ---------
 - Ensure /tmp/ is aviable as Read/Write
 - Once the code has been pulled,ange dir to src.express and run: <code>node index [PORT]</code>
+- If you want to run the process in the background, you can 
+-- install the forever module - <code>npm install forever</code>
+-- Run <code>forever start index.js [PORT]</code>
 
 Features
 =========
