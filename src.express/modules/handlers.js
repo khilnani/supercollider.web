@@ -63,7 +63,6 @@ function process(request, response) {
     	    
 					console.log("Saved to '" + getScd(guid) + "'");
     	    
-    	    		//120x1000ms
     	    		var options = { 
   						timeout: 30000
   					 };
