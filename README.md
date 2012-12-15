@@ -54,6 +54,18 @@ Development Status
 
 - The application is in a proof of concept stage. The code does not account for multi-user support or security validation.
 
+Screenshots
+=========
+
+![image](sample_output/01 - main.png)
+
+![image](sample_output/02 - post sc execution.png)
+
+![image](sample_output/03 - post soundcloud connect.png)
+
+![image](sample_output/04 - scdocs integration.png)
+
+
 Technical Notes
 =========
 
