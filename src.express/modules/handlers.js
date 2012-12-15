@@ -8,6 +8,8 @@ var sc_startFile = "./templates/sc_start.scd";
 var sc_midFile = "./templates/sc_mid.scd";	
 var sc_endFile = "./templates/sc_end.scd";
 
+//--------------------------------------------
+
 
 function process(request, response) {
 
@@ -97,16 +99,7 @@ function process(request, response) {
 
 }
 
-function sendJsonError(response, err) {
-	console.error(err);
-	var r = {
-		log: err,
-		guid: null
-	};
-	response.json(r);
-	
-}
-
+//--------------------------------------------
 
 function render(request, response) {
   	
@@ -125,6 +118,20 @@ function render(request, response) {
   	
 }
 
+//--------------------------------------------
+
+function sc(request, response) {
+
+  	var token = request.query.code;
+
+  	console.log("/sc token=" + token);
+  	  	
+  	renderFile(response, '/html/sc.html');
+
+}
+
+//--------------------------------------------
+
 function getScd(guid) {
 	return scdPath + guid + ".scd";
 }
@@ -137,12 +144,37 @@ function getAudioPath(guid) {
 	return audioPath + getAudioName(guid);
 }
 
+function sendJsonError(response, err) {
+	console.error(err);
+	var r = {
+		log: err,
+		guid: null
+	};
+	response.json(r);
+	
+}
 
 function sendError(response, err) {
 	console.error(err);
 	response.send(err);
 }
 
+
+function renderFile(response, path) {
+    fs.readFile(__dirname + '/..' + path, 'utf8', function(err, text){
+    	if(err) 
+    	{
+    		sendError(response, err);
+    	}
+    	else
+    	{
+    		//console.log("Sending: \n" + text);
+        	response.send(text);
+        }
+    });
+}
+
+
 exports.process = process;
 exports.render = render;
-
+exports.sc = sc;
