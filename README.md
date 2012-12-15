@@ -59,11 +59,11 @@ Screenshots
 
 ![image](01 - main.png)
 
-![image](/02 - post sc execution.png)
+![image](02 - post sc execution.png)
 
 ![image](03 - post soundcloud connect.png)
 
-![image](/04 - scdocs integration.png)
+![image](04 - scdocs integration.png)
 
 
 Technical Notes
