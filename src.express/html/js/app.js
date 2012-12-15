@@ -20,6 +20,7 @@ $(document).bind('pageinit', function () {
 		running = true;
 	
 		$('#log').val( "Loading ..." );
+		$('#log').trigger('keyup');
 		guid = "";
 
 
@@ -30,6 +31,8 @@ $(document).bind('pageinit', function () {
 			running = false;
 			
 			$('#log').val( responseData.log );
+			$('#log').trigger('keyup');
+
 			
 			if(responseData.guid) {
 				guid = responseData.guid;
