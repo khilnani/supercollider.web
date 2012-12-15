@@ -2,8 +2,8 @@ var guid = null;
 var running = false;
 
 $(document).bind('pageinit', function () {
-	$('#sccode').css('height', '10em').css('font-size','10px').css('width','100%');
-    $('#log').css('height', '10em').css('font-size','10px').css('width','100%');
+	$('#sccode').css('height', '9em').css('font-size','10px').css('width','100%');
+    $('#log').css('height', '9em').css('font-size','10px').css('width','100%');
     $('#scroller').css({'overflow' : 'auto', '-webkit-overflow-scrolling' : 'touch'});
 
 	$('#scForm').on('submit', function (e) {
@@ -39,7 +39,7 @@ $(document).bind('pageinit', function () {
 			
 			guid = responseData.guid;
 			
-			$("#sctrackname").val(guid);
+			//$("#sctrackname").val(guid);
 			
 			
 		});
