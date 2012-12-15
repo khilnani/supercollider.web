@@ -4,6 +4,7 @@ var running = false;
 $(document).bind('pageinit', function () {
 	$('#sccode').css('height', '10em').css('font-size','10px').css('width','100%');
     $('#log').css('height', '10em').css('font-size','10px').css('width','100%');
+    $('#scroller').css({'overflow' : 'auto', '-webkit-overflow-scrolling' : 'touch'});
 
 	$('#scForm').on('submit', function (e) {
 	
