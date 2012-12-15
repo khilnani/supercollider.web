@@ -18,20 +18,22 @@
     
 
     
-<div data-role="page" id="page1">
+<div data-role="page" id="code">
 	<div data-role="content">
 		<form id="scForm" action="/process" method="post" data-ajax="false">
                <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
                         <label for="sccode">
-                            SuperCollider Code
+                            SuperCollider
                         </label>
                         <textarea name="sccode" id="sccode" placeholder="" data-mini="true">
 play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.kr(0.5.rand).exprange(1,9)}!8)).tanh/4};
                         </textarea>
                     </fieldset>
                 </div>
-                <input type="submit" data-theme="a" value="Submit" data-mini="true"/>
+                <input type="submit" data-theme="a" value="Execute" data-mini="true" id="execute"/>
+
+                
         </form>
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
@@ -42,23 +44,28 @@ play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.
                         </textarea>
                     </fieldset>
                 </div>
+                
+                <input type="button" data-theme="a" value="Listen" data-mini="true" id="listen"/>
+                
 		<div data-role="footer" data-id="foo1" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#page1" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">Code</a></li>
-					<li><a href="#page2" data-transition="fade" data-theme="a">SoundCloud</a></li>
+					<li><a href="#code" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">Code</a></li>
+					<li><a href="#sc" data-transition="fade" data-theme="a">SoundCloud</a></li>
+					<li><a href="#docs" data-transition="fade" data-theme="a">Docs</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->
 	</div>
 </div>
-<div data-role="page" id="page2">
+<div data-role="page" id="sc">
 	<div data-role="content">
 		<form action="form.php" method="post">
 			<div data-role="fieldcontain">
-			    <label for="basic">Username: </label>
+			    <label for="scname">Username: </label>
 			    <input type="text" name="name" id="scname" value="" data-mini="true" />
-			    <label for="basic">Password: </label>
+			    <br/>
+			    <label for="scpassword">Password: </label>
 			    <input type="password" name="password" id="scpassword" value="" data-mini="true" />
     		</div>
 			    
@@ -68,7 +75,7 @@ play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.
 	    
 		<form action="form.php" method="post">
 			<div data-role="fieldcontain">
-			    <label for="basic">Name: </label>
+			    <label for="sctrackname">Name: </label>
 			    <input type="text" name="name" id="sctrackname" value="" data-mini="true" />
     		</div>
 			    
@@ -79,15 +86,31 @@ play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.
 		<div data-role="footer" data-id="foo1" data-position="fixed">
 			<div data-role="navbar">
 				<ul>
-					<li><a href="#page1" data-transition="fade" data-theme="a">Code</a></li>
-					<li><a href="#page2" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">SoundCloud</a></li>
+					<li><a href="#code" data-transition="fade" data-theme="a">Code</a></li>
+					<li><a href="#sc" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">SoundCloud</a></li>
+					<li><a href="#docs" data-transition="fade" data-theme="a">Docs</a></li>
 				</ul>
 			</div><!-- /navbar -->
 		</div><!-- /footer -->
 
 	</div>
 </div>
+<div data-role="page" id="docs">
+	<div data-role="content">
+		<iframe src="http://doc.sccode.org" width="100%" height="400" scrolling="auto" seamless></iframe>
+    
+		<div data-role="footer" data-id="foo1" data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a href="#code" data-transition="fade" data-theme="a">Code</a></li>
+					<li><a href="#sc" data-transition="fade" data-theme="a">SoundCloud</a></li>
+					<li><a href="#docs" data-transition="fade" data-theme="a" class="ui-btn-active ui-state-persist">Docs</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div><!-- /footer -->
 
+	</div>
+</div>
         <script>
             //App custom javascript
         </script>
