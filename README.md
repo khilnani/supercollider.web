@@ -57,13 +57,13 @@ Development Status
 Screenshots
 =========
 
-![image](sample_output/01 - main.png)
+![image](01 - main.png)
 
-![image](sample_output/02 - post sc execution.png)
+![image](/02 - post sc execution.png)
 
-![image](sample_output/03 - post soundcloud connect.png)
+![image](03 - post soundcloud connect.png)
 
-![image](sample_output/04 - scdocs integration.png)
+![image](/04 - scdocs integration.png)
 
 
 Technical Notes
