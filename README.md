@@ -57,13 +57,14 @@ Development Status
 Screenshots
 =========
 
-![image](https://github.com/dysf/sc_tweeter/blob/master/sample_output/01%20-%20main.png?raw=true)
 
-![image](https://github.com/dysf/sc_tweeter/blob/master/sample_output/02%20-%20post%20sc%20execution.png?raw=true)
+![image](https://raw.github.com/dysf/sc_tweeter/master/sample_output/01%20-%20main.png)
 
-![image](https://github.com/dysf/sc_tweeter/blob/master/sample_output/03%20-%20post%20soundcloud%20connect.png?raw=true)
+![image](https://raw.github.com/dysf/sc_tweeter/master/sample_output/02%20-%20post%20sc%20execution.png)
 
-![image](https://github.com/dysf/sc_tweeter/blob/master/sample_output/04%20-%20scdocs%20integration.png?raw=true)
+![image](https://raw.github.com/dysf/sc_tweeter/master/sample_output/03%20-%20post%20soundcloud%20connect.png)
+
+![image](https://raw.github.com/dysf/sc_tweeter/master/sample_output/04%20-%20scdocs%20integration.png)
 
 
 Technical Notes
