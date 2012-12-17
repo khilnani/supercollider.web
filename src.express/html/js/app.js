@@ -1,16 +1,31 @@
 
+//---------------------------------------
+
 var inited=false;
 var running = false;
 var scconnected = false;
 
-var guid = null;
-var sctoken = null;
+//---------------------------------------
 
+
+function getQueryVariable(variable) {
+	var query = window.location.search.substring(1);
+	var vars = query.split('&');
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split('=');
+		if (decodeURIComponent(pair[0]) == variable) {
+		return decodeURIComponent(pair[1]);
+		}
+	}
+	console.log('Query variable %s not found', variable);
+}
+	
+//---------------------------------------
 
 
 function logViewHelper()
 {
-    $('#log').css({'height': '9em', 'font-size':'10px', 'width':'100%'});
+    $('#log').css({'height': '6em', 'font-size':'10px', 'width':'100%'});
 	$('#log').trigger('keyup');
 }
 
@@ -19,15 +34,160 @@ function refreshLogView()
 	window.setTimeout(window.logViewHelper, 10);
 }
 
+//---------------------------------------
 
+function setGuid(guid)
+{
+	try
+	{
+		localStorage.setItem("guid", guid);
+		console.log("setGuid: guid: " + guid);          
+	}
+	catch(e)
+	{
+		console.log("setGuid: Unable to save: " + guid);
+	}
+}
+
+function setCode(code)
+{
+	try
+	{
+		localStorage.setItem("code", code);
+		console.log("setCode: code: " + code);          
+	}
+	catch(e)
+	{
+		console.log("setCode: Unable to save: " + code);
+	}
+}
+
+function setToken(sctoken)
+{
+	try
+	{
+		localStorage.setItem("sctoken", sctoken);
+		console.log("setToken: sctoken: " + sctoken);           
+	}
+	catch(e)
+	{
+		console.log("setToken: Unable to save: " + sctoken);
+	}
+}
+
+
+function getState()
+{
+	var o = {
+		sctoken : localStorage.getItem("sctoken"),
+		guid : localStorage.getItem("guid"),
+		code : localStorage.getItem("code")
+	};
+	
+	var d = "";
+		d += "sctoken: " + o.sctoken + "<br/>";
+		d += "guid: " + o.guid + "<br/>";
+		d += "code: " + o.code;
+	
+	console.log("getState: " + d);
+	
+	return o;
+}
+
+function refreshCode()
+{
+	if(getState().code)
+	{
+		$('#sccode').val(getState().code);
+	}
+}
+
+function storageHandler(e)
+{
+	var d = "";
+	d += "e.key: " + e.key;
+	d += "\ne.oldValue: " + e.oldValue;
+	d += "\ne.newValue: " + e.newValue;
+	d += "\ne.url: " + e.url;
+	d += "\ne.source: " + e.source;
+	
+	console.log("storageHandler: " + d);
+	
+	if(e.key == "sctoken" && e.oldValue == null && e.newValue!= null)
+	{
+		console.log("sctoken changed.");
+		window.setTimeout(window.initSoundCloud, 100);
+	}
+	
+	refreshCode();
+	
+	showDebugInfo();
+
+}
+
+function showDebugInfo()
+{
+	var o = getState();
+	
+	var d = "";
+		d += "sctoken: " + o.sctoken + "<br/>";
+		d += "guid: " + o.guid + "<br/>"
+		d += "code: " + o.code;
+		
+		$('#scdebuglabel').html(d);
+
+}
+
+//---------------------------------------
+
+function getSCUserName()
+{
+	SC.get('/me', function(me) { 
+		//alert( JSON.stringify(me) );
+		if(me.errors)
+		{
+			scconnected = false;
+			$('#scconnectlabel').html('');
+			$('#scconnect').show();
+		}
+		else
+		{
+			scconnected = true;
+			$('#scconnectlabel').html('Hello, ' + me.username + '!');
+			$('#scconnect').hide();
+		}
+	});
+}
+
+function initState()
+{
+	// http://stackoverflow.com/questions/11116532/how-to-have-users-reconnect-with-soundcloud-on-each-page-reload
+	if(getState().sctoken)
+	{
+		SC.storage().setItem('SC.accessToken', getState().sctoken);
+		getSCUserName();
+	}
+	
+	refreshCode();
+}
+
+//---------------------------------------
 
 $(document).bind('pageinit', function () {
 
 	if(inited) return;
 	inited = true;
+	
+	window.addEventListener('storage', storageHandler, false);	 
 
-	$('#sccode').css({'height': '9em', 'font-size':'10px', 'width':'100%'});
+
+	$('#sccode').css({'height': '9em', 'font-size':'12px', 'width':'100%'});
+	$('#sccode').on("change", function(event, ui) {
+		setCode($('#sccode').val());
+	});
+	
 	logViewHelper();
+   
     $('#scroller').css({'overflow' : 'auto', '-webkit-overflow-scrolling' : 'touch', 'padding': '0 0 0 0', 'margin': '0 0 0 0'});
 	$('#docsiframe').css({'padding': '0 0 0 0', 'margin': '0 0 0 0', 'height': $(document).height() * 0.93 });
     
@@ -57,9 +217,6 @@ $(document).bind('pageinit', function () {
 	
 		$('#log').val( "Loading ..." );
 		refreshLogView();
-		
-		guid = "";
-
 
     	var $this = $(this);
 
@@ -70,20 +227,24 @@ $(document).bind('pageinit', function () {
 			$('#log').val( responseData.log );
 			refreshLogView();
 			
+			var guid = "";
+			
 			if(responseData.guid) {
 				guid = responseData.guid;
 			} else {
 				guid = "";
 			}
 			
-			guid = responseData.guid;
+			setGuid(guid);			
 			
-	    	console.log("SC Code execution attempt completed. guid: " + guid);			
+	    	console.log("SC Code execution attempt completed.");			
 			
 		});
 	});
 	
 	$('#listen').on('click', function() {
+	
+		var guid = getState().guid;
     	console.log("Attempting to playback. guid: " + guid);
 
 		if(guid && guid != "")
@@ -103,28 +264,24 @@ $(document).bind('pageinit', function () {
 		});
 		
 		SC.connect(function() {
-			SC.get('/me', function(me) { 
-		    	console.log("Connected to SoundCloud");
-
-				$('#scconnectlabel').html('Hello, ' + me.username + '!');
-				scconnected = true;
-			});
+			scconnected = true;	    
+			console.log("Connected to SoundCloud");
+			//alert("Connected to SoundCloud");
+			
+			getSCUserName();
 		});
 	});
 	
 	
 	$('#scdebug').on('click', function() {
 
-		var d = "";
-		d += "sctoken: " + sctoken + "<br/>";
-		d += "guid: " + guid;
-		
-		$('#scdebuglabel').html(d);
-
-    	console.log(d);
+		showDebugInfo();
+		getSCUserName();
 
 	});
-	 
+	
+	// Kickoff state restore, testing the SoundCloud connection etc.
+	initState();
 
 
 });

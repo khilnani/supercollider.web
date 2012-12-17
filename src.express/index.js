@@ -1,6 +1,6 @@
-var express = require("express");
-var handlers = require("./modules/handlers");
-var app = express();
+var express = require("express"),
+	handlers = require("./modules/handlers"),
+	app = express();
 
 
 
@@ -20,9 +20,7 @@ if(port) {
 	app.listen(port);
 	console.log('Listening on port: ' + port);
 } else {
-	console.log('USAGE node index PORT');
+	console.log('USAGE node index [PORT]');
 }
 
 
-
-  // make a custom html template

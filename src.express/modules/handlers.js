@@ -1,5 +1,11 @@
-var exec = require("child_process").exec;
-var fs = require('fs');
+//--------------------------------------------
+
+var http = require("http"),
+	exec = require("child_process").exec,
+	fs = require('fs'),
+	scer = require("./soundclouder");
+
+//--------------------------------------------
 
 
 var scdPath = "/tmp/";
@@ -10,8 +16,19 @@ var sc_endFile = "./templates/sc_end.scd";
 
 //--------------------------------------------
 
+var client_id = "8298c1d316d40cd38954c7f44375c675",
+	client_secret = "0510b5ecaa7f0cc8587797aa9f350809",
+	redirect_uri = "http://dev.dysf.co:8080/sc";
+	
+//--------------------------------------------
 
-function process(request, response) {
+scer.init(client_id, client_secret, redirect_uri);
+
+//--------------------------------------------
+
+
+function process(request, response) 
+{
 
 	var guid = (new Date()).getTime();
 
@@ -100,50 +117,55 @@ function process(request, response) {
 
 //--------------------------------------------
 
-function render(request, response) {
-  	
+function render(request, response) 
+{	
   	var guid = request.query.guid;
 
   	console.log("/render guid=" + guid);
-
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
 			sendError(response,err);
 		}
-		
 	});
+}
 
+//--------------------------------------------
+
+function sc(request, response) 
+{
+
+  	var sccode = request.query.code;
+
+  	console.log("/sc sccode=" + sccode);
+  	
+  	scer.auth(sccode, function (e) {
+  		var replaceParams = {'%access_token%': scer.accesstoken() };
+		console.log('/sc access_token=' + scer.accesstoken());
+  		renderFile(response, '/html/sc.html', replaceParams);
+  	});
   	
 }
 
 //--------------------------------------------
 
-function sc(request, response) {
-
-  	var token = request.query.code;
-
-  	console.log("/sc token=" + token);
-  	  	
-  	renderFile(response, '/html/sc.html');
-
-}
-
-//--------------------------------------------
-
-function getScd(guid) {
+function getScd(guid) 
+{
 	return scdPath + guid + ".scd";
 }
 
-function getAudioName(guid) {
+function getAudioName(guid) 
+{
 	return guid + ".aiff";
 }
 
-function getAudioPath(guid) {
+function getAudioPath(guid) 
+{
 	return audioPath + getAudioName(guid);
 }
 
-function sendJsonError(response, err) {
+function sendJsonError(response, err) 
+{
 	console.error(err);
 	var r = {
 		log: err,
@@ -153,13 +175,15 @@ function sendJsonError(response, err) {
 	
 }
 
-function sendError(response, err) {
+function sendError(response, err) 
+{
 	console.error(err);
 	response.send(err);
 }
 
 
-function renderFile(response, path) {
+function renderFile(response, path, replaceParams) 
+{
     fs.readFile(__dirname + '/..' + path, 'utf8', function(err, text){
     	if(err) 
     	{
@@ -167,13 +191,24 @@ function renderFile(response, path) {
     	}
     	else
     	{
-    		//console.log("Sending: \n" + text);
+    		for(var ea in replaceParams)
+    		{
+    		    console.log("renderFile: replacing: " + ea + " with " + replaceParams[ea]);
+				text = text.replace(ea, replaceParams[ea], "gi");
+			}
+    		
+    		//console.log("renderFile: \n" + text);
         	response.send(text);
         }
     });
 }
 
+//--------------------------------------------
 
 exports.process = process;
 exports.render = render;
 exports.sc = sc;
+
+//--------------------------------------------
+
+

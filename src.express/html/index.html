@@ -63,8 +63,11 @@ play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.
 	<div data-role="content">
 	
 			<div data-role="fieldcontain">
-			    <label id="scconnectlabel" for="scconnect">Please connect :) </label>
+			    <strong><label id="scconnectlabel" for="scconnect"></label></strong>
+			    <!--
 			    <input type="button" data-theme="a" value="Connect" data-mini="true" id="scconnect"/>
+			    //-->
+			    <img id="scconnect" src="/images/btn-connect-sc.png" border="0"/>
     		</div>
     		
 			<div data-role="fieldcontain">
