@@ -1,0 +1,34 @@
+
+8298c1d316d40cd38954c7f44375c675
+0510b5ecaa7f0cc8587797aa9f350809
+
+
+
+http://dev.dysf.co:8080/sc?code=ef1bf5823f4ee9a23f2c6803439d18ee&signed_up=0&state=SoundCloud_Dialog_3e98b#access_token=1-29132-29620504-83125bec29bdc42&scope=non-expiring
+
+Request URL:https://api.soundcloud.com/me?oauth_token=11-29132-29620504-81f1b9e89cc339d&format=json&_status_code_map[302]=200
+
+https://soundcloud.com/connect?client_id=b45b1aa10f1ac2941910a7f0d10f8e28&response_type=code&scope=non-expiring fast-connect&display=next&redirect_uri=https%3A//soundcloud.com/soundcloud-callback.html
+
+
+-------
+
+
+https://api.soundcloud.com/oauth2/token
+
+client_id=8298c1d316d40cd38954c7f44375c675
+client_secret=0510b5ecaa7f0cc8587797aa9f350809
+grant_type=authorization_code
+redirect_uri=http://dev.dysf.co:8080/sc
+code=7df4a6b7856c5fe4eb7905d8c52d0f30
+
+https://api.soundcloud.com/oauth2/token?client_id=8298c1d316d40cd38954c7f44375c675&client_secret=0510b5ecaa7f0cc8587797aa9f350809&grant_type=authorization_code&redirect_uri=http://dev.dysf.co:8080/sc&code=7df4a6b7856c5fe4eb7905d8c52d0f30
+
+
+curl -X POST "https://api.soundcloud.com/oauth2/token" -F 'client_id=8298c1d316d40cd38954c7f44375c675' -F 'client_secret=0510b5ecaa7f0cc8587797aa9f350809' -F 'grant_type=authorization_code' -F 'redirect_uri=http://dev.dysf.co:8080/sc' -F 'code=7df4a6b7856c5fe4eb7905d8c52d0f30'
+
+
+------
+
+https://api.soundcloud.com/me?oauth_token=1-29132-29620504-81f1b9e89cc339d&format=json&_status_code_map[302]=200
+
