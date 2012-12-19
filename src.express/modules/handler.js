@@ -3,11 +3,11 @@
 var http = require("http"),
 	exec = require("child_process").exec,
 	fs = require('fs'),
-	scer = require("./soundclouder");
+	handler = exports;
 
 //--------------------------------------------
 
-
+var scer = null;
 var scdPath = "/tmp/";
 var audioPath = "/tmp/";
 var sc_startFile = "./templates/sc_start.scd";
@@ -16,18 +16,20 @@ var sc_endFile = "./templates/sc_end.scd";
 
 //--------------------------------------------
 
-var client_id = "8298c1d316d40cd38954c7f44375c675",
-	client_secret = "0510b5ecaa7f0cc8587797aa9f350809",
-	redirect_uri = "http://dev.dysf.co:8080/sc";
+
 	
 //--------------------------------------------
 
-scer.init(client_id, client_secret, redirect_uri);
+handler.setSoundClouder = function (_scer)
+{
+	scer = _scer;
+}
+
 
 //--------------------------------------------
 
 
-function process(request, response) 
+handler.process = function (request, response) 
 {
 
 	var guid = (new Date()).getTime();
@@ -69,7 +71,7 @@ function process(request, response)
 				sc_end = data;
 				
 				sc_params = "~path = \"" + getAudioPath(guid) + "\";";
-				sc_params += "~length = 10;";
+				sc_params += "~length = 20;";
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
@@ -117,7 +119,7 @@ function process(request, response)
 
 //--------------------------------------------
 
-function render(request, response) 
+handler.render = function (request, response) 
 {	
   	var guid = request.query.guid;
 
@@ -132,7 +134,7 @@ function render(request, response)
 
 //--------------------------------------------
 
-function sc(request, response) 
+handler.sc = function (request, response) 
 {
 
   	var sccode = request.query.code;
@@ -203,11 +205,6 @@ function renderFile(response, path, replaceParams)
     });
 }
 
-//--------------------------------------------
-
-exports.process = process;
-exports.render = render;
-exports.sc = sc;
 
 //--------------------------------------------
 
