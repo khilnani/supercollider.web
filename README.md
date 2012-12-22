@@ -60,13 +60,13 @@ Development Status
 Screenshots
 =========
 
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png)
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" />
 
 
 Technical Notes
