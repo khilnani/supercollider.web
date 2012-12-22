@@ -43,14 +43,20 @@ handler.process = function (request, response)
 	var sc_txt = request.body.sccode;
 	var duration = request.body.duration;
 	var sc_data = "";
-	
+	var sclang_startup_time = 10;
+	var sclang_timeout = 10;	
+
 	if(typeof(duration) == "undefined" || duration == "NaN" || duration == "-1" || duration == "0")
 	{
 		duration = 1;
+	
 	}
+
+	var sclang_timeout = (duration + sclang_startup_time) * 1000;
 
 	console.log("sccode: " + sc_txt);
 	console.log("duration: " + duration);
+	console.log("sclang_timeout: " + sclang_timeout);
 	console.log("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
@@ -63,7 +69,7 @@ handler.process = function (request, response)
 
 		fs.readFile(sc_midFile, function (err, data) {
 			if (err) 
-		    	sendJsonError(response, err);
+		    		sendJsonError(response, err);
 	
 
 			console.log(data);
@@ -82,33 +88,33 @@ handler.process = function (request, response)
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
 				fs.writeFile( getScd(guid) , sc_data, function(err) {
-			    	if(err) 
-			    	    sendJsonError(response, err);
-
+			    	
+					if(err) 
+			    	    		sendJsonError(response, err);
     	    
 					console.log("Saved to '" + getScd(guid) + "'");
     	    
-    	    		var options = { 
-  						timeout: 30000
+    	    				var options = { 
+  						timeout: sclang_timeout
   					 };
   						
-    	    		exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
+    	    				exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
     	    		
-    	    			console.log("sclang output:\n" + stdout);
+    	    				console.log("sclang output:\n" + stdout);
     	    
-    	    			if(error) 
-    	    			{
-    	    				sendJsonError(response, stdout);
-    	    			}
-    	    			else
-    	    			{
-    	    				var r = {
-    	    					log: stdout,
-    	    					guid: guid
-    	    				};
+    	    				if(error) 
+    	    				{
+    	    					sendJsonError(response, stdout);
+    	    				}
+    	    				else
+    	    				{
+    	    					var r = {
+    	    						log: stdout,
+    	    						guid: guid
+    	    					};
     	    			    	    			
-    	    				response.json(r);
-    	    			}
+    	    					response.json(r);
+    	    				}
 
 					}); 
 
