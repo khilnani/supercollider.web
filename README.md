@@ -38,12 +38,14 @@ Features
 
 > **NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.**
 
-Current Features
+Current Development State
 ---------
 
 - Web based entry of SuperCollider code
 - Generation of Audio based on command line execution of 'sclang'
 - Streaming of generated audio to the browser
+- State saving in the Browser using LocalStorage
+- SCCode.org Docs integration
 
 Planned Features
 ---------
@@ -52,21 +54,17 @@ Planned Features
 - Twitter integration to post resulting tweet.
 
 
-Development Status
-=========
-
-- The application is in a proof of concept stage. The code does not account for multi-user support or security validation.
 
 Screenshots
 =========
 
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" width="50%" height="50%" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" width="50%" height="50%" />
 
 
 Technical Notes
