@@ -58,13 +58,20 @@ Planned Features
 Screenshots
 =========
 
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" width="50%" height="50%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" width="50%" height="50%" />
+<styles>
+.img {
+	width: 50%,
+	height: 50%
+}
+</styles>
+
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" />
+<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" />
 
 
 Technical Notes
