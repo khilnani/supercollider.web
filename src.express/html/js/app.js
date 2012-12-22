@@ -144,23 +144,43 @@ function getSCUserName()
 {
 	SC.get('/me', function(me) { 
 		//alert( JSON.stringify(me) );
-		if(me.errors)
+		if(me == null ||  me.errors)
 		{
-			scconnected = false;
-			$('#scconnectlabel').html('');
-			$('#scconnect').show();
+			scDisconnected();	
 		}
 		else
 		{
-			scconnected = true;
-			$('#scconnectlabel').html('Hello, ' + me.username + '!');
-			$('#scconnect').hide();
+			scConnected(me);
 		}
 	});
 }
 
+function scDisconnected()
+{
+        scconnected = false;
+        $('#scconnectlabel').html('');
+        $('#scconnect').show();
+	$('#logout').hide();
+
+        setToken(null);
+        SC.storage().removeItem('SC.accessToken');
+}
+
+function scConnected(me)
+{
+        scconnected = true;
+        $('#scconnectlabel').html('Hello, ' + me.username + '!');
+	$('#scconnect').hide();
+	$('#logout').show();
+}
+
 function initState()
 {
+
+	$('#scconnectlabel').html('');
+	$('#scconnect').hide();
+	$('#logout').hide();
+
 	// http://stackoverflow.com/questions/11116532/how-to-have-users-reconnect-with-soundcloud-on-each-page-reload
 	if(getState().sctoken)
 	{
@@ -169,6 +189,13 @@ function initState()
 	}
 	
 	refreshCode();
+}
+
+function logout()
+{
+	console.log("Logging out.");
+
+	scDisconnected();
 }
 
 //---------------------------------------
@@ -224,7 +251,7 @@ $(document).bind('pageinit', function () {
 						
 			running = false;
 			
-			$('#log').val( responseData.log );
+			$('#log').val( responseData.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
 			refreshLogView();
 			
 			var guid = "";
@@ -255,7 +282,7 @@ $(document).bind('pageinit', function () {
 
 	$('#scconnect').on('click', function() {
 	
-    	console.log("Attempting to connect to SoundCloud. ");
+    		console.log("Attempting to connect to SoundCloud. ");
 
 		SC.initialize({
 			client_id: '8298c1d316d40cd38954c7f44375c675',
@@ -271,7 +298,11 @@ $(document).bind('pageinit', function () {
 			getSCUserName();
 		});
 	});
-	
+
+
+	$('#logout').on('click', function () {
+		logout();
+	});
 	
 	$('#scdebug').on('click', function() {
 

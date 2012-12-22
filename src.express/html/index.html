@@ -21,28 +21,41 @@
     
 <div data-role="page" id="code">
 	<div data-role="content">
+
 		<form id="scForm" action="/process" method="post" data-ajax="false">
                <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
                         <label for="sccode">
                             SuperCollider
                         </label>
-                        <textarea name="sccode" id="sccode" placeholder="" data-mini="true">
-play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.kr(0.5.rand).exprange(1,9)}!8)).tanh/4};
-                        </textarea>
+                        <textarea name="sccode" id="sccode" data-mini="true" >play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.kr(0.5.rand).exprange(1,9)}!8)).tanh/4};</textarea>
                     </fieldset>
                 </div>
-                <input type="submit" data-theme="a" value="Execute" data-mini="true" id="execute"/>
 
+		<fieldset data-role="controlgroup" data-type="horizontal">
+
+        	<select name="duration" id="duration" data-mini="true" data-inline="true" data-native-menu="true">
+			<option value="-1" selected="true" disabled data-placeholder="true">Select Audio Duration</option>
+			<option value="1">None (Validate only)</option>
+			<option value="10">10 seconds</option>
+			<option value="20">20 seconds</option>
+			<option value="60">1 min</option>
+			<option value="120">2 mins</option>
+			<option value="180">3 mins</option>
+			<option value="240">4 mins</option>
+        	</select>
+		 <input type="submit" data-theme="a" value="Execute Code" data-mini="true" id="execute" data-inline="true"/>
+
+		</fieldset>
                 
         </form>
+ 
                 <div data-role="fieldcontain">
                     <fieldset data-role="controlgroup">
                         <label for="log">
-                            Log
+                            Console Ouput
                         </label>
-                        <textarea name="log" id="log" placeholder="" data-mini="true">
-                        </textarea>
+                        <textarea name="log" id="log" data-mini="true">No code executed.</textarea>
                     </fieldset>
                 </div>
                 
@@ -61,16 +74,17 @@ play{a=SinOsc;b=49*(1,1.33..10.64);Splay.ar(a.ar({|i|b@i*a.ar(b@(7-i))*LFNoise1.
 </div>
 <div data-role="page" id="sc">
 	<div data-role="content">
-	
-			<div data-role="fieldcontain">
-			    <strong><label id="scconnectlabel" for="scconnect"></label></strong>
-			    <!--
-			    <input type="button" data-theme="a" value="Connect" data-mini="true" id="scconnect"/>
-			    //-->
-			    <img id="scconnect" src="/images/btn-connect-sc.png" border="0"/>
-    		</div>
-    		
-			<div data-role="fieldcontain">
+
+                <div data-role="header" data-position="fixed">
+			<h1 id="scconnectlabel"></h1>
+                        <a href="#logout" id="logout" data-icon="gear" class="ui-btn-right">Logout</a>
+                </div>
+
+		<div id="scconnect" data-role="fieldcontain">
+			<img src="/images/btn-connect-sc.png" border="0"/>    	
+		</div>
+
+		<div data-role="fieldcontain">
 			    <label id="scdebuglabel" for="scdebug"> </label>
 			    <input type="button" data-theme="a" value="Debug" data-mini="true" id="scdebug"/>
     		</div>

@@ -41,10 +41,16 @@ handler.process = function (request, response)
 	var sc_end = "";
 	var sc_params = "";
 	var sc_txt = request.body.sccode;
+	var duration = request.body.duration;
 	var sc_data = "";
 	
-	
+	if(typeof(duration) == "undefined" || duration == "NaN" || duration == "-1" || duration == "0")
+	{
+		duration = 1;
+	}
+
 	console.log("sccode: " + sc_txt);
+	console.log("duration: " + duration);
 	console.log("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
@@ -70,8 +76,8 @@ handler.process = function (request, response)
 //				console.log(data);
 				sc_end = data;
 				
-				sc_params = "~path = \"" + getAudioPath(guid) + "\";";
-				sc_params += "~length = 20;";
+				sc_params = "~path = \"" + getAudioPath(guid) + "\";\n";
+				sc_params += "~length = " + duration + ";";
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				

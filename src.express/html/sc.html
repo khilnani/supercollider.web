@@ -6,14 +6,14 @@
 	
 	function setToken(sctoken)
 	{
-	    try
-    	{
+	    	try
+    		{
 			localStorage.setItem("sctoken", sctoken);
 			console.log("setToken: sctoken: " + sctoken);			
 		}
 		catch(e)
 		{
-		console.log("setToken: Unable to save: " + sctoken);
+			console.log("setToken: Unable to save: " + sctoken);
 		}
 	}
     
@@ -21,7 +21,8 @@
     {
 		setToken('%access_token%');
 					
-		window.opener.setTimeout(window.opener.SC.connectCallback, 1000);
+		window.opener.setTimeout(window.opener.SC.connectCallback, 10);
+    		window.close();
     }
     
     </script>
