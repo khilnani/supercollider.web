@@ -66,7 +66,7 @@ Screenshots
 ![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png)
 ![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png)
 ![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png)
-![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png
+![image](https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png)
 
 
 Technical Notes
