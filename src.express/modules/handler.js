@@ -100,21 +100,21 @@ handler.process = function (request, response)
   						
     	    				exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
     	    		
-    	    				console.log("sclang output:\n" + stdout);
+    	    					console.log("sclang output:\n" + stdout);
     	    
-    	    				if(error) 
-    	    				{
-    	    					sendJsonError(response, stdout);
-    	    				}
-    	    				else
-    	    				{
-    	    					var r = {
-    	    						log: stdout,
-    	    						guid: guid
-    	    					};
+    	    					if(error) 
+    	    					{
+    	    						sendJsonError(response, stdout);
+    	    					}
+    	    					else
+    	    					{
+    	    						var r = {
+    	    							log: stdout,
+    	    							guid: guid
+    	    						};
     	    			    	    			
-    	    					response.json(r);
-    	    				}
+    	    						response.json(r);
+    	    					}
 
 					}); 
 

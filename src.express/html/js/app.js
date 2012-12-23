@@ -4,6 +4,8 @@
 var inited=false;
 var running = false;
 var scconnected = false;
+var logIntervalId = -1;
+var timerSeconds = 0;
 
 //---------------------------------------
 
@@ -25,14 +27,40 @@ function getQueryVariable(variable) {
 
 function logViewHelper()
 {
-    $('#log').css({'height': '6em', 'font-size':'10px', 'width':'100%'});
+	$('#log').css({'height': '6em', 'font-size':'10px', 'width':'100%'});
 	$('#log').trigger('keyup');
 }
 
-function refreshLogView()
+function refreshLogView( msg )
 {
+	if(msg)
+	{
+                $('#log').val( msg );
+	}
 	window.setTimeout(window.logViewHelper, 10);
 }
+
+
+function clearLogTimer()
+{
+	console.log("Clear Log Timer called.");
+	window.clearInterval(logIntervalId);
+}
+
+function startLogTimer()
+{
+	console.log("Start Log Timer.");
+	timerSeconds = 0;
+	logIntervalId = window.setInterval( window.logTimer , 1000);
+}
+
+function logTimer () 
+{
+        timerSeconds ++;
+	console.log("Called log Timer .. " + timerSeconds); 
+        refreshLogView("Loading... Elapsed: " + timerSeconds + " second(s)");
+}
+
 
 //---------------------------------------
 
@@ -213,21 +241,21 @@ $(document).bind('pageinit', function () {
 		setCode($('#sccode').val());
 	});
 	
-	logViewHelper();
+	refreshLogView();
    
-    $('#scroller').css({'overflow' : 'auto', '-webkit-overflow-scrolling' : 'touch', 'padding': '0 0 0 0', 'margin': '0 0 0 0'});
+	$('#scroller').css({'overflow' : 'auto', '-webkit-overflow-scrolling' : 'touch', 'padding': '0 0 0 0', 'margin': '0 0 0 0'});
 	$('#docsiframe').css({'padding': '0 0 0 0', 'margin': '0 0 0 0', 'height': $(document).height() * 0.93 });
     
-    $(window).bind('resize', function () {
+	$(window).bind('resize', function () {
 	    $('#docsiframe').css('height',  $(document).height() * 0.92 );
-    });
+	});
     
 
 	$('#scForm').on('submit', function (e) {
 	
-    	console.log("Attempting to send SC Code");
+    		console.log("Attempting to send SC Code");
 	
-	    e.preventDefault();
+	    	e.preventDefault();
 	
 		if(running == true) {
 			var c = confirm("Execution in process. Override?");
@@ -239,21 +267,30 @@ $(document).bind('pageinit', function () {
 		
 		running = true;
 		
-    	console.log("Sending SC Code.");
+    		console.log("Sending SC Code.");
 
-	
-		$('#log').val( "Loading ..." );
-		refreshLogView();
+		startLogTimer();
 
-    	var $this = $(this);
+    		var $this = $(this);
 
-	    $.post($this.attr('action'), $this.serialize(), function (responseData) {
+	    	$.post($this.attr('action'), $this.serialize(), function (responseData) {
 						
 			running = false;
-			
-			$('#log').val( responseData.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
-			refreshLogView();
-			
+
+			clearLogTimer();
+	
+			console.log("Responses recieved from server.");			
+	
+			if(responseData.log)
+			{
+				console.log("Log Recieved: \n" + responseData.log);
+				refreshLogView( responseData.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
+			}
+			else
+			{	console("Log not Recieved." );
+				refreshLogView();
+			}
+
 			var guid = "";
 			
 			if(responseData.guid) {
@@ -264,7 +301,7 @@ $(document).bind('pageinit', function () {
 			
 			setGuid(guid);			
 			
-	    	console.log("SC Code execution attempt completed.");			
+	    		console.log("SC Code execution attempt completed.");			
 			
 		});
 	});
@@ -272,7 +309,7 @@ $(document).bind('pageinit', function () {
 	$('#listen').on('click', function() {
 	
 		var guid = getState().guid;
-    	console.log("Attempting to playback. guid: " + guid);
+    		console.log("Attempting to playback. guid: " + guid);
 
 		if(guid && guid != "")
 			window.location.href = "/render?guid=" + guid;
