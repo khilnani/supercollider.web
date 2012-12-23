@@ -4,10 +4,10 @@ var logger = exports,
 	util = require('util');
 
 
-// 0, 1, 2, 3, 4
-var log_types = ["error", "warn", "info", "debug", "trace"];
-var log_labels = ["[ERROR] ", "[WARN]  ", "[INFO]  ", "[DEBUG] ", "[TRACE] "];
-var log_level = 2;	// info and higher
+// 0, 1, 2, 3, 4, 5
+var log_types = ["error", "warn", "event", "info", "debug", "trace"];
+var log_labels = ["[ERROR] ", "[WARN]  ", "[EVENT] ", "[INFO]  ", "[DEBUG] ", "[TRACE] "];
+var log_level = 3;	// info and higher
 
 //----------------------------------------------
 
@@ -48,6 +48,11 @@ logger.setLogLevel = function (level)
 logger.system = function( message ) 
 {
 	util.log("[SYSTEM]: " + message );
+}
+
+logger.event = function( message ) 
+{
+	log("event", message);
 }
 
 logger.error = function( message ) 

@@ -37,7 +37,7 @@ handler.process = function (request, response)
 
 	var guid = (new Date()).getTime();
 
-	log.info("POST /process guid=" + guid);  	
+	log.event("POST /process guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -138,8 +138,11 @@ handler.process = function (request, response)
     	    			    	    			
     	    						response.json(r);
     	    					}
+    	    					
+    	    					log.event("Finished /process guid=" + guid);  	
 
-					}); 
+
+							}); 
 
 				});			
 				
@@ -158,7 +161,7 @@ handler.render = function (request, response)
 {	
   	var guid = request.query.guid;
 
-  	log.info("/render guid=" + guid);
+  	log.event("/render guid=" + guid);
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
@@ -174,7 +177,7 @@ handler.sc = function (request, response)
 
   	var sccode = request.query.code;
 
-  	log.info("/sc sccode=" + sccode);
+  	log.event("/sc sccode=" + sccode);
   	
   	scer.auth(sccode, function (e) {
   		var replaceParams = {'%access_token%': scer.accesstoken() };
