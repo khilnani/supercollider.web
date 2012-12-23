@@ -3,7 +3,8 @@
 var http = require("http"),
 	exec = require("child_process").exec,
 	fs = require('fs'),
-	util = require('util'),
+	utils = require("./utils"),
+	log = require("./logger"),
 	handler = exports;
 
 //--------------------------------------------
@@ -23,6 +24,7 @@ var sc_endFile = "./templates/sc_end.scd";
 
 handler.setSoundClouder = function (_scer)
 {
+	log.debug("handler.setSoundClouder");
 	scer = _scer;
 }
 
@@ -35,7 +37,7 @@ handler.process = function (request, response)
 
 	var guid = (new Date()).getTime();
 
-	util.log("POST /process guid=" + guid);  	
+	log.info("POST /process guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -60,43 +62,38 @@ handler.process = function (request, response)
 
 	request.connection.on('error', function (e)
 	{
-		util.log('Socket error.');
-		util.log(e);
+		log.error('Socket error.');
+		log.error(e);
 	});
 
 	request.connection.on('close', function ()
 	{
-		util.log('Socket closed.');
+		log.error('Socket closed.');
 	});
 
 	var sclang_timeout = duration_seconds * 1000;
 
-	util.log("sccode: " + sc_txt);
-	util.log("duration: " + duration);
-	util.log("sclang_timeout: " + sclang_timeout);
-	util.log("guid: " + guid);
+	log.info("sccode: " + sc_txt);
+	log.info("duration: " + duration);
+	log.info("sclang_timeout: " + sclang_timeout);
+	log.info("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
 		if (err) 
-			sendJsonError(response, err);
+			utils.sendJsonError(response, err);
 
-
-		//util.log(data);
 		sc_start = data;
 
 		fs.readFile(sc_midFile, function (err, data) {
 			if (err) 
-		    		sendJsonError(response, err);
+		    		utils.sendJsonError(response, err);
 	
-
-			//util.log(data);
 			sc_mid = data;
 			
 			fs.readFile(sc_endFile, function (err, data) {
 				if (err) 
-					sendJsonError(response, err);
+					utils.sendJsonError(response, err);
 
-//				util.log(data);
 				sc_end = data;
 				
 				sc_params = "~path = \"" + getAudioPath(guid) + "\";\n";
@@ -104,32 +101,32 @@ handler.process = function (request, response)
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
-				//util.log("Attempting to save: \n" + sc_data);
+				log.trace("Attempting to save: \n" + sc_data);
 				
 				fs.writeFile( getScd(guid) , sc_data, function(err) {
 			    	
 					if(err) 
 					{
 			    				util.error("Error saving to '" + getScd(guid) + "'");    		
-			    	    		sendJsonError(response, err);
+			    	    		utils.sendJsonError(response, err);
 			    	}
     	    
-						util.log("Saved to '" + getScd(guid) + "'");
+						log.info("Saved to '" + getScd(guid) + "'");
     	    
     	    				var options = { 
   						timeout: sclang_timeout
   					 };
 					
-					util.log("Executing sclang " + getScd(guid) + " with timeout: " + sclang_timeout);
+					log.info("Executing sclang " + getScd(guid) + " with timeout: " + sclang_timeout);
   						
     	    				exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
     	    		
-    	    					util.log("sclang stdout:\n" + stdout);
+    	    					log.info("sclang stdout:\n" + stdout);
  
     	    					if(error) 
     	    					{
-    	    						util.error("sclang stderr:\n" + stderr);
-    	    						sendJsonError(response, stdout);
+    	    						log.error("sclang stderr:\n" + stderr);
+    	    						utils.sendJsonError(response, stdout);
 
     	    					}
     	    					else
@@ -161,11 +158,11 @@ handler.render = function (request, response)
 {	
   	var guid = request.query.guid;
 
-  	util.log("/render guid=" + guid);
+  	log.info("/render guid=" + guid);
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
-			sendError(response,err);
+			utils.sendError(response,err);
 		}
 	});
 }
@@ -177,12 +174,12 @@ handler.sc = function (request, response)
 
   	var sccode = request.query.code;
 
-  	util.log("/sc sccode=" + sccode);
+  	log.info("/sc sccode=" + sccode);
   	
   	scer.auth(sccode, function (e) {
   		var replaceParams = {'%access_token%': scer.accesstoken() };
-		util.log('/sc access_token=' + scer.accesstoken());
-  		renderFile(response, '/html/sc.html', replaceParams);
+		log.info('/sc access_token=' + scer.accesstoken());
+  		utils.renderFile(response, '/html/sc.html', replaceParams);
   	});
   	
 }
@@ -203,46 +200,6 @@ function getAudioPath(guid)
 {
 	return audioPath + getAudioName(guid);
 }
-
-function sendJsonError(response, err) 
-{
-	util.log(err);
-	var r = {
-		log: err,
-		guid: null
-	};
-	response.json(r);
-	
-}
-
-function sendError(response, err) 
-{
-	util.log(err);
-	response.send(err);
-}
-
-
-function renderFile(response, path, replaceParams) 
-{
-    fs.readFile(__dirname + '/..' + path, 'utf8', function(err, text){
-    	if(err) 
-    	{
-    		sendError(response, err);
-    	}
-    	else
-    	{
-    		for(var ea in replaceParams)
-    		{
-    		    util.log("renderFile: replacing: " + ea + " with " + replaceParams[ea]);
-				text = text.replace(ea, replaceParams[ea], "gi");
-			}
-    		
-    		//util.log("renderFile: \n" + text);
-        	response.send(text);
-        }
-    });
-}
-
 
 //--------------------------------------------
 

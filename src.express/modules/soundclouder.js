@@ -2,8 +2,8 @@
 
 var http = require('http'),
 	qs = require('querystring'),
-	fs = require('fs'),
-	util = require('util');
+	log = require("./logger"),
+	utils = require("./utils"),
 	sc = exports;
 	
 var inited = false;
@@ -39,7 +39,7 @@ sc.auth = function (code, callback)
 {
 	if(inited == false)
 	{
-		util.log("SoundClouder not inited!");
+		log.warn("SoundClouder not inited!");
 		callback({'message' : "SoundClouder not inited!"});
 	}
 	else
@@ -65,25 +65,25 @@ sc.auth = function (code, callback)
 		  
 		var req = http.request(post_options, function(res) {  
 			res.setEncoding('utf8');  
-			//util.log('STATUS: ' + res.statusCode);
-			//util.log('HEADERS: ' + JSON.stringify(res.headers));
+			log.trace('STATUS: ' + res.statusCode);
+			log.trace('HEADERS: ' + JSON.stringify(res.headers));
 		 
 			var data = "";
 			res.on('data', function (chunk) {
 				data += chunk;
-				//util.log('Chunk: ' + chunk);  
+				log.trace('Chunk: ' + chunk);  
 			});  
 			res.on('end', function () {
-				//util.log('Response: ' + data);
+				log.trace('Response: ' + data);
 				var d = JSON.parse(data);
 				access_token = d.access_token;
-				util.log('access_token:' + access_token);
+				log.info('access_token:' + access_token);
 				callback();
 			});
 		});
 		
 		req.on('error', function(e) {
-		  util.log('problem with request: ' + e.message);
+		  log.error('Problem with request: ' + e.message);
 		  callback(e);
 		});
 		  
@@ -131,42 +131,3 @@ https://api.soundcloud.com/me?oauth_token=1-29132-29620504-81f1b9e89cc339d&forma
   	  	
   	  	
 */
-
-//--------------------------------------------
-
-function sendJsonError(response, err) 
-{
-	util.error(err);
-	var r = {
-		log: err,
-		guid: null
-	};
-	response.json(r);
-	
-}
-
-function sendError(response, err) 
-{
-	util.error(err);
-	response.send(err);
-}
-
-
-function renderFile(response, path) 
-{
-    fs.readFile(__dirname + '/..' + path, 'utf8', function(err, text){
-    	if(err) 
-    	{
-    		sendError(response, err);
-    	}
-    	else
-    	{
-    		//util.log("Sending: \n" + text);
-        	response.send(text);
-        }
-    });
-}
-
-//--------------------------------------------
-
-
