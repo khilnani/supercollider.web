@@ -3,6 +3,7 @@
 var http = require("http"),
 	exec = require("child_process").exec,
 	fs = require('fs'),
+	util = require('util'),
 	handler = exports;
 
 //--------------------------------------------
@@ -34,7 +35,7 @@ handler.process = function (request, response)
 
 	var guid = (new Date()).getTime();
 
-	console.log("POST /process guid=" + guid);  	
+	util.log("POST /process guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -51,20 +52,36 @@ handler.process = function (request, response)
 		duration = 1;
 	
 	}
+	
+	var duration_seconds = parseInt(duration) + sclang_startup_time;
 
-	var sclang_timeout = (duration + sclang_startup_time) * 1000;
+//	request.connection.setTimeout( duration_seconds ); 
+	request.connection.setKeepAlive(true);
 
-	console.log("sccode: " + sc_txt);
-	console.log("duration: " + duration);
-	console.log("sclang_timeout: " + sclang_timeout);
-	console.log("guid: " + guid);
+	request.connection.on('error', function (e)
+	{
+		util.log('Socket error.');
+		util.log(e);
+	});
+
+	request.connection.on('close', function ()
+	{
+		util.log('Socket closed.');
+	});
+
+	var sclang_timeout = duration_seconds * 1000;
+
+	util.log("sccode: " + sc_txt);
+	util.log("duration: " + duration);
+	util.log("sclang_timeout: " + sclang_timeout);
+	util.log("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
 		if (err) 
 			sendJsonError(response, err);
 
 
-		console.log(data);
+		//util.log(data);
 		sc_start = data;
 
 		fs.readFile(sc_midFile, function (err, data) {
@@ -72,14 +89,14 @@ handler.process = function (request, response)
 		    		sendJsonError(response, err);
 	
 
-			console.log(data);
+			//util.log(data);
 			sc_mid = data;
 			
 			fs.readFile(sc_endFile, function (err, data) {
 				if (err) 
 					sendJsonError(response, err);
 
-//				console.log(data);
+//				util.log(data);
 				sc_end = data;
 				
 				sc_params = "~path = \"" + getAudioPath(guid) + "\";\n";
@@ -87,24 +104,33 @@ handler.process = function (request, response)
 				
 				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
 				
+				//util.log("Attempting to save: \n" + sc_data);
+				
 				fs.writeFile( getScd(guid) , sc_data, function(err) {
 			    	
 					if(err) 
+					{
+			    				util.error("Error saving to '" + getScd(guid) + "'");    		
 			    	    		sendJsonError(response, err);
+			    	}
     	    
-					console.log("Saved to '" + getScd(guid) + "'");
+						util.log("Saved to '" + getScd(guid) + "'");
     	    
     	    				var options = { 
   						timeout: sclang_timeout
   					 };
+					
+					util.log("Executing sclang " + getScd(guid) + " with timeout: " + sclang_timeout);
   						
     	    				exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
     	    		
-    	    					console.log("sclang output:\n" + stdout);
-    	    
+    	    					util.log("sclang stdout:\n" + stdout);
+ 
     	    					if(error) 
     	    					{
+    	    						util.error("sclang stderr:\n" + stderr);
     	    						sendJsonError(response, stdout);
+
     	    					}
     	    					else
     	    					{
@@ -135,7 +161,7 @@ handler.render = function (request, response)
 {	
   	var guid = request.query.guid;
 
-  	console.log("/render guid=" + guid);
+  	util.log("/render guid=" + guid);
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
@@ -151,11 +177,11 @@ handler.sc = function (request, response)
 
   	var sccode = request.query.code;
 
-  	console.log("/sc sccode=" + sccode);
+  	util.log("/sc sccode=" + sccode);
   	
   	scer.auth(sccode, function (e) {
   		var replaceParams = {'%access_token%': scer.accesstoken() };
-		console.log('/sc access_token=' + scer.accesstoken());
+		util.log('/sc access_token=' + scer.accesstoken());
   		renderFile(response, '/html/sc.html', replaceParams);
   	});
   	
@@ -180,7 +206,7 @@ function getAudioPath(guid)
 
 function sendJsonError(response, err) 
 {
-	console.error(err);
+	util.log(err);
 	var r = {
 		log: err,
 		guid: null
@@ -191,7 +217,7 @@ function sendJsonError(response, err)
 
 function sendError(response, err) 
 {
-	console.error(err);
+	util.log(err);
 	response.send(err);
 }
 
@@ -207,11 +233,11 @@ function renderFile(response, path, replaceParams)
     	{
     		for(var ea in replaceParams)
     		{
-    		    console.log("renderFile: replacing: " + ea + " with " + replaceParams[ea]);
+    		    util.log("renderFile: replacing: " + ea + " with " + replaceParams[ea]);
 				text = text.replace(ea, replaceParams[ea], "gi");
 			}
     		
-    		//console.log("renderFile: \n" + text);
+    		//util.log("renderFile: \n" + text);
         	response.send(text);
         }
     });

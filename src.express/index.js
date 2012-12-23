@@ -1,3 +1,8 @@
+var util = require("util");
+
+
+util.log("Started...");
+
 var configFile = process.argv[2];
 var port = process.argv[3];
 
@@ -26,10 +31,32 @@ if(port && configFile)
 
 	app.listen(port);
 	
-	console.log('Listening on port: ' + port + ' using config file: ' + configFile);
+	util.log('Listening on port: ' + port + ' using config file: ' + configFile);
+	
+	/*
+	server.on('connection', function(socket) {
+		console.log("new Server connection.");
+
+		socket.setTimeout(30 * 1000); 
+		socket.setKeepAlive(true);
+	});
+	
+	server.on('request', function(request, response) {
+		console.log("Server request received.");
+	});
+	
+	server.on('close', function() {
+		console.log("close Server connection.");
+	});
+	
+	server.on('clientError', function(e) {
+		util.log("Server clientError.");
+		util.log(util.inspect(e));
+	});
+	*/
 	
 } 
 else 
 {
-	console.log('USAGE node index [CONFIG FILE] [PORT]');
+	util.log('USAGE node index [CONFIG FILE] [PORT]');
 }

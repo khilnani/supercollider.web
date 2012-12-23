@@ -21,6 +21,23 @@ function getQueryVariable(variable) {
 	}
 	console.log('Query variable %s not found', variable);
 }
+
+function convertSecondsToMins(sec)
+{
+	var mins = 0;
+	var secs = 0;
+
+	if(sec)
+	{
+		min = Math.floor(sec / 60);
+		secs = sec % 60;
+
+		return {m: min, s: secs};
+	}
+
+	return {m: 0, s:sec};
+	
+}
 	
 //---------------------------------------
 
@@ -54,11 +71,19 @@ function startLogTimer()
 	logIntervalId = window.setInterval( window.logTimer , 1000);
 }
 
+function getLogTimerMsg ()
+{
+        console.log("getLogTimerMsg: " + timerSeconds);
+        var msg = "Loading... Elapsed: " + convertSecondsToMins(timerSeconds).m + " min(s) " + convertSecondsToMins(timerSeconds).s + " second(s)" ;
+        return msg;
+}
+
 function logTimer () 
 {
         timerSeconds ++;
 	console.log("Called log Timer .. " + timerSeconds); 
-        refreshLogView("Loading... Elapsed: " + timerSeconds + " second(s)");
+	var msg = getLogTimerMsg();
+	refreshLogView( msg );
 }
 
 
@@ -267,43 +292,58 @@ $(document).bind('pageinit', function () {
 		
 		running = true;
 		
-    		console.log("Sending SC Code.");
+    		console.log("Sending SC Code via jqXHR.");
+
 
 		startLogTimer();
 
     		var $this = $(this);
 
-	    	$.post($this.attr('action'), $this.serialize(), function (responseData) {
+	    	var jqXHR = $.post($this.attr('action'), $this.serialize() );
 						
+		jqXHR.done( function( data ) {
+                        console.log("jqXHR.done.");
+
+                        if(data.log)
+                        {
+                                console.log("Log Recieved: \n" + data.log);
+                                refreshLogView( data.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
+                        }
+                        else
+                        {       console("Log not Recieved." );
+                                refreshLogView();
+                        }
+
+                        var guid = "";
+
+                        if(data.guid) {
+                                guid = data.guid;
+                        } else {
+                                guid = "";
+                        }
+
+                        setGuid(guid);
+
+		});
+
+		jqXHR.fail( function( data ) {
+                        console.log("jqXHR.fail: " + data);
+
+        		var msg = getLogTimerMsg();
+			msg += "\nUnknown AJAX/execution error.";
+        		refreshLogView( msg );
+
+		});
+
+		jqXHR.always( function( data ) {
+			console.log("jqXHR.always: " + data);
+			
+			clearLogTimer();
 			running = false;
 
-			clearLogTimer();
-	
-			console.log("Responses recieved from server.");			
-	
-			if(responseData.log)
-			{
-				console.log("Log Recieved: \n" + responseData.log);
-				refreshLogView( responseData.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
-			}
-			else
-			{	console("Log not Recieved." );
-				refreshLogView();
-			}
-
-			var guid = "";
-			
-			if(responseData.guid) {
-				guid = responseData.guid;
-			} else {
-				guid = "";
-			}
-			
-			setGuid(guid);			
-			
-	    		console.log("SC Code execution attempt completed.");			
-			
+                        console.log("SC Code execution attempt completed.");
 		});
+
 	});
 	
 	$('#listen').on('click', function() {

@@ -1,8 +1,9 @@
 //--------------------------------------------
 
-var http = require("http"),
+var http = require('http'),
 	qs = require('querystring'),
 	fs = require('fs'),
+	util = require('util');
 	sc = exports;
 	
 var inited = false;
@@ -38,7 +39,7 @@ sc.auth = function (code, callback)
 {
 	if(inited == false)
 	{
-		console.log("SoundClouder not inited!");
+		util.log("SoundClouder not inited!");
 		callback({'message' : "SoundClouder not inited!"});
 	}
 	else
@@ -64,25 +65,25 @@ sc.auth = function (code, callback)
 		  
 		var req = http.request(post_options, function(res) {  
 			res.setEncoding('utf8');  
-			//console.log('STATUS: ' + res.statusCode);
-			//console.log('HEADERS: ' + JSON.stringify(res.headers));
+			//util.log('STATUS: ' + res.statusCode);
+			//util.log('HEADERS: ' + JSON.stringify(res.headers));
 		 
 			var data = "";
 			res.on('data', function (chunk) {
 				data += chunk;
-				//console.log('Chunk: ' + chunk);  
+				//util.log('Chunk: ' + chunk);  
 			});  
 			res.on('end', function () {
-				//console.log('Response: ' + data);
+				//util.log('Response: ' + data);
 				var d = JSON.parse(data);
 				access_token = d.access_token;
-				console.log('access_token:' + access_token);
+				util.log('access_token:' + access_token);
 				callback();
 			});
 		});
 		
 		req.on('error', function(e) {
-		  console.log('problem with request: ' + e.message);
+		  util.log('problem with request: ' + e.message);
 		  callback(e);
 		});
 		  
@@ -105,27 +106,27 @@ https://api.soundcloud.com/me?oauth_token=1-29132-29620504-81f1b9e89cc339d&forma
   		hostname: 'google.com'
   	};
   	
-  	console.log("calling: " + options.hostname);
+  	util.log("calling: " + options.hostname);
   	
   	var req = http.get(options, function (response) {
-  		console.log("http code: " + response.statusCode);
-  		console.log("http code: " + JSON.stringify(response.headers));
+  		util.log("http code: " + response.statusCode);
+  		util.log("http code: " + JSON.stringify(response.headers));
   		
   		var data = "";
   		response.on('data', function(chunk) {
   			data += chunk;
-  			console.log("chunk: " + chunk);
+  			util.log("chunk: " + chunk);
   		});
   		response.on('end', function() {
-  			console.log("ended.");
-  			console.log("--------------");
-  			console.log("final data: \n" + data);
-  			console.log("--------------");
+  			util.log("ended.");
+  			util.log("--------------");
+  			util.log("final data: \n" + data);
+  			util.log("--------------");
   		});
 	});
 	
 	req.on('error', function(e) {
-  		console.log("http error: " + e.message);  	
+  		util.log("http error: " + e.message);  	
   	});
   	  	
   	  	
@@ -135,7 +136,7 @@ https://api.soundcloud.com/me?oauth_token=1-29132-29620504-81f1b9e89cc339d&forma
 
 function sendJsonError(response, err) 
 {
-	console.error(err);
+	util.error(err);
 	var r = {
 		log: err,
 		guid: null
@@ -146,7 +147,7 @@ function sendJsonError(response, err)
 
 function sendError(response, err) 
 {
-	console.error(err);
+	util.error(err);
 	response.send(err);
 }
 
@@ -160,7 +161,7 @@ function renderFile(response, path)
     	}
     	else
     	{
-    		//console.log("Sending: \n" + text);
+    		//util.log("Sending: \n" + text);
         	response.send(text);
         }
     });
