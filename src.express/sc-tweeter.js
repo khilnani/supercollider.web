@@ -35,7 +35,10 @@ if(port && configFile)
 	app.get('/render', handler.render);
 	app.get('/sc', handler.sc);
 
-	app.listen(port);
+	app.listen(port).on('error', function(e) {
+		log.error("Listen error.");
+		log.error(r);
+	});
 	
 	log.system('Listening on port: ' + port + ' using config file: ' + configFile);
 	
