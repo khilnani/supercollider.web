@@ -26,12 +26,12 @@ Installation
 ---------
 - Ensure /tmp/ is aviable as Read/Write
 - Update <code>src.express/config.js</code>
-- Once the code has been pulled,ange dir to src.express and run: <code>USAGE node index.js [CONFIG FILE] [PORT]</code>
-	- Example <code>node index.js config 8080</code>
+- Once the code has been pulled,ange dir to src.express and run: <code>USAGE node sc-tweeter.js [CONFIG FILE] [PORT]</code>
+	- Example <code>node sc-tweeter.js config.js 8080</code>
 - If you want to run the process in the background, you can 
   - Install the forever module - <code>npm install forever</code>
-  - Run <code>forever start index.js [CONFIG FILE] [PORT]</code>. 
-  	- Example <code>forever start index.js config 8080</code>
+  - Run <code>forever start sc-tweeter.js [CONFIG FILE] [PORT]</code>. 
+  	- Example <code>forever start sc-tweeter.js config.js 8080</code>
 
 Features
 =========
