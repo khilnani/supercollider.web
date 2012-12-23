@@ -25,8 +25,8 @@ Requirements
 Installation
 ---------
 - Ensure /tmp/ is aviable as Read/Write
-- Update <code>src.express/config.js</code>
-- Once the code has been pulled,ange dir to src.express and run: <code>USAGE node sc-tweeter.js [CONFIG FILE] [PORT]</code>
+- Update <code>src/config.js</code>
+- Once the code has been pulled,ange dir to 'src' and run: <code>USAGE node sc-tweeter.js [CONFIG FILE] [PORT]</code>
 	- Example <code>node sc-tweeter.js config.js 8080</code>
 - If you want to run the process in the background, you can 
   - Install the forever module - <code>npm install forever</code>
@@ -81,7 +81,7 @@ Overview
 Codebase
 ---------
 
-- sample_output: Sample SuperCollider code that is created, along with the resulting audio.
+- examples: Sample SuperCollider code that is created, along with the resulting audio.
 - test: Reference SuperCollider code that is used for standalone testing of SC integration. 
 - leftovers: Experiments, abandoned ideas etc. that may be of interest.
 
