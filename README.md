@@ -23,7 +23,7 @@ Requirements
 - SuperCollider
 - Node.js Modules
 	- express 
-		- If you see errors after installing express globall, use <code>export NODE_PATH=/usr/local/lib/node_modules
+		- If you see errors after installing express globally, use <code>export NODE_PATH=/usr/local/lib/node_modules
 </code>
 	- forever
 
