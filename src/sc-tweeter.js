@@ -12,7 +12,7 @@ var port = process.argv[3];
 if(port && configFile) 
 {
 
-	var express = require("express"),
+	var express = require('express'),
 		handler = require("./modules/handler"),
 		scer = require("./modules/soundclouder"),
 
