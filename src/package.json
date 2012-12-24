@@ -4,7 +4,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
-		"express": "3.x"
+		"express": "3.x",
+		"forever": "0.10.x"		
 	},
-	"engine": "node 0.8.15"
+	"engine": "node 0.8.16"
 }
