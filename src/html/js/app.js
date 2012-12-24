@@ -169,7 +169,8 @@ function storageHandler(e)
 	if(e.key == "sctoken" && (e.oldValue == null || e.oldValue =='null') && e.newValue != null)
 	{
 		console.log("User just logged into SoundCloud. sctoken changed.");
-		window.setTimeout(window.initState, 100);
+		//window.setTimeout(window.initState, 100);
+		initState();
 	}
 	
 	refreshCode();
@@ -229,7 +230,7 @@ function scConnected(me)
 
 function initState()
 {
-
+	console.log("initState()");
 	$('#scconnectlabel').html('');
 	$('#scconnect').hide();
 	$('#logout').hide();
@@ -237,6 +238,7 @@ function initState()
 	// http://stackoverflow.com/questions/11116532/how-to-have-users-reconnect-with-soundcloud-on-each-page-reload
 	if(getState().sctoken)
 	{
+		console.log("initState(): getting SC Username");
 		SC.storage().setItem('SC.accessToken', getState().sctoken);
 		getSCUserName();
 	}

@@ -37,7 +37,7 @@ handler.process = function (request, response)
 
 	var guid = (new Date()).getTime();
 
-	log.event("POST /process guid=" + guid);  	
+	log.event("/process Started. ip=" + request.ip + " guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -139,7 +139,7 @@ handler.process = function (request, response)
     	    						response.json(r);
     	    					}
     	    					
-    	    					log.event("Finished /process guid=" + guid);  	
+								log.event("/process ended. ip=" + request.ip + " guid=" + guid);  	
 
 
 							}); 
@@ -161,7 +161,7 @@ handler.render = function (request, response)
 {	
   	var guid = request.query.guid;
 
-  	log.event("/render guid=" + guid);
+	log.event("/render ip=" + request.ip + " guid=" + guid);  	
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
@@ -177,7 +177,8 @@ handler.sc = function (request, response)
 
   	var sccode = request.query.code;
 
-  	log.event("/sc sccode=" + sccode);
+  	log.event("/sc  ip=" + request.ip + " sccode=" + sccode);  	
+
   	
   	scer.auth(sccode, function (e) {
   		var replaceParams = {'%access_token%': scer.accesstoken() };
@@ -189,7 +190,7 @@ handler.sc = function (request, response)
 
 //--------------------------------------------
 
-function getScd(guid) 
+function getScd(sccode) 
 {
 	return scdPath + guid + ".scd";
 }
