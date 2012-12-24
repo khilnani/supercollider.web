@@ -159,17 +159,17 @@ function storageHandler(e)
 {
 	var d = "";
 	d += "e.key: " + e.key;
-	d += "\ne.oldValue: " + e.oldValue;
-	d += "\ne.newValue: " + e.newValue;
+	d += "\ne.oldValue: " + e.oldValue + "(" + typeof(e.oldValue) + ")";
+	d += "\ne.newValue: " + e.newValue + "(" + typeof(e.newValue) + ")";
 	d += "\ne.url: " + e.url;
 	d += "\ne.source: " + e.source;
 	
 	console.log("storageHandler: " + d);
 	
-	if(e.key == "sctoken" && e.oldValue == null && e.newValue!= null)
+	if(e.key == "sctoken" && (e.oldValue == null || e.oldValue =='null') && e.newValue != null)
 	{
-		console.log("sctoken changed.");
-		window.setTimeout(window.initSoundCloud, 100);
+		console.log("User just logged into SoundCloud. sctoken changed.");
+		window.setTimeout(window.initState, 100);
 	}
 	
 	refreshCode();
@@ -371,8 +371,6 @@ $(document).bind('pageinit', function () {
 			scconnected = true;	    
 			console.log("Connected to SoundCloud");
 			//alert("Connected to SoundCloud");
-			
-			getSCUserName();
 		});
 	});
 
