@@ -3,8 +3,8 @@
 var http = require("http"),
 	exec = require("child_process").exec,
 	fs = require('fs'),
-	utils = require("./utils"),
-	log = require("./logger"),
+	utils = require("dysf.utils").utils,
+	log = require("dysf.utils").logger,
 	handler = exports;
 
 //--------------------------------------------
@@ -68,19 +68,19 @@ handler.process = function (request, response)
 	
 	fs.readFile(sc_startFile, function (err, data) {
 		if (err) 
-			utils.sendJsonError(response, err);
+			sendJsonError(response, err);
 
 		sc_start = data;
 
 		fs.readFile(sc_midFile, function (err, data) {
 			if (err) 
-		    		utils.sendJsonError(response, err);
+		    		sendJsonError(response, err);
 	
 			sc_mid = data;
 			
 			fs.readFile(sc_endFile, function (err, data) {
 				if (err) 
-					utils.sendJsonError(response, err);
+					sendJsonError(response, err);
 
 				sc_end = data;
 				
@@ -95,8 +95,8 @@ handler.process = function (request, response)
 			    	
 					if(err) 
 					{
-			    				util.error("Error saving to '" + getScd(guid) + "'");    		
-			    	    		utils.sendJsonError(response, err);
+			    				log.error("Error saving to '" + getScd(guid) + "'");    		
+			    	    		sendJsonError(response, err);
 			    	}
     	    
 						log.info("Saved to '" + getScd(guid) + "'");
@@ -114,7 +114,7 @@ handler.process = function (request, response)
     	    					if(error) 
     	    					{
     	    						log.error("sclang stderr:\n" + stderr);
-    	    						utils.sendJsonError(response, stdout);
+    	    						sendJsonError(response, stdout);
 
     	    					}
     	    					else
@@ -153,7 +153,7 @@ handler.render = function (request, response)
   	
 	response.download( getAudioPath(guid), getAudioName(guid), function (err) {
 		if (err) {
-			utils.sendError(response,err);
+			sendError(response,err);
 		}
 	});
 }
@@ -165,13 +165,21 @@ handler.sc = function (request, response)
 
   	var sccode = request.query.code;
 
-  	log.event("/sc sccode=" + sccode);  	
+  	log.event("/sc Started. sccode=" + sccode);  	
 
   	
   	scer.auth(sccode, function (e) {
   		var replaceParams = {'%access_token%': scer.accesstoken() };
 		log.info('/sc access_token=' + scer.accesstoken());
-  		utils.renderFile(response, '/html/sc.html', replaceParams);
+  		utils.renderFile(response, __dirname + '/..' + '/html/sc.html', replaceParams, function (err) {
+  			if(err) 
+  			{
+  				log.error("/sc Ended in error. sccode=" + sccode);
+				sendError(response, err);
+			} else {
+			  	log.event("/sc Ended. sccode=" + sccode);  	
+			}
+  		});
   	});
   	
 }
@@ -191,6 +199,25 @@ function getAudioName(guid)
 function getAudioPath(guid) 
 {
 	return audioPath + getAudioName(guid);
+}
+
+//--------------------------------------------
+
+function sendJsonError (response, err) 
+{
+	log.error(err);
+	var r = {
+		log: err,
+		guid: null
+	};
+	response.json(r);
+	
+}
+
+function sendError (response, err) 
+{
+	log.error(err);
+	response.send(err);
 }
 
 //--------------------------------------------

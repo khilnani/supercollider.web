@@ -1,6 +1,8 @@
 //----------------------------------------------
+// SC-tweeter
 
-var log = require("./modules/logger");
+var log = require("dysf.utils").logger;
+
 
 log.system("Starting " + __filename);
 

@@ -2,8 +2,8 @@
 
 var http = require('http'),
 	qs = require('querystring'),
-	log = require("./logger"),
-	utils = require("./utils"),
+	log = require("dysf.utils").logger,
+	utils = require("dysf.utils").utils,
 	sc = exports;
 	
 var inited = false;
