@@ -2,7 +2,7 @@
 
 var log = require("./modules/logger");
 
-log.system("Started...");
+log.system("Starting " + __filename);
 
 var configFile = process.argv[2];
 var port = process.argv[3];
@@ -13,6 +13,7 @@ if(port && configFile)
 {
 
 	var express = require('express'),
+		http = require('http'),
 		handler = require("./modules/handler"),
 		scer = require("./modules/soundclouder"),
 
@@ -31,39 +32,50 @@ if(port && configFile)
 		app.use(express.bodyParser());
 	});
 	
-	app.post('/process', handler.process);
+	app.post('/process',handler.process);
 	app.get('/render', handler.render);
 	app.get('/sc', handler.sc);
-
-	app.listen(port).on('error', function(e) {
-		log.error("Listen error.");
-		log.error(r);
+	
+	var server = http.createServer(app);
+	
+	server.listen(port);
+	
+	server.on('listening', function () {
+		log.system('Server listening on port: ' + port + ' using config file: ' + configFile);
 	});
-	
-	log.system('Listening on port: ' + port + ' using config file: ' + configFile);
-	
-	/*
-	server.on('connection', function(socket) {
-		console.log("new Server connection.");
 
-		socket.setTimeout(30 * 1000); 
-		socket.setKeepAlive(true);
+	server.on('error', function(e) {
+		log.error("Server error.");
+		log.error(e);
+	});
+		
+	server.on('connection', function(socket) {
+		log.event("New socket connection from: " + socket.remoteAddress);
+		
+		socket.on('error', function(e) {
+			log.error("Socket error: " + this.remoteAddress);
+			log.error(e);
+		});
+		
+		socket.on('close', function (hadError) {
+			log.event("Socket closed. Had error? " + hadError);
+		});
+		
 	});
 	
 	server.on('request', function(request, response) {
-		console.log("Server request received.");
+		log.info("Server request received: " + request.url );
 	});
 	
 	server.on('close', function() {
-		console.log("close Server connection.");
+		log.system("Server stopped.");
 	});
 	
 	server.on('clientError', function(e) {
-		util.log("Server clientError.");
-		util.log(util.inspect(e));
+		log.error("Server clientError.");
+		log.error(e);
 	});
-	*/
-	
+		
 } 
 else 
 {

@@ -9,6 +9,7 @@ var log_types = ["error", "warn", "event", "info", "debug", "trace"];
 var log_labels = ["[ERROR] ", "[WARN]  ", "[EVENT] ", "[INFO]  ", "[DEBUG] ", "[TRACE] "];
 var log_level = 3;	// info and higher
 
+
 //----------------------------------------------
 
 function log(level, message) 
@@ -23,12 +24,13 @@ function log(level, message)
 		}
 		
 		if(index == 0) message = "*** " + message;
-      	
+		      	
       	util.log(log_labels[index] + ': '+ message);
     }
 }
 
-//----------------------------------------------
+//----------------------------------------------//----------------------------------------------
+
 
 logger.setLogLevel = function (level)
 {
