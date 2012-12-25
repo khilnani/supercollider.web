@@ -16,9 +16,8 @@ if(port && configFile)
 
 	var express = require('express'),
 		http = require('http'),
+		scer = require("soundclouder"),
 		handler = require("./modules/handler"),
-		scer = require("./modules/soundclouder"),
-
 		config = require("./" + configFile),
 		app = express();
 		
