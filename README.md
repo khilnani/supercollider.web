@@ -22,6 +22,7 @@ Requirements
 - Node.js
 - SuperCollider
 - Node.js Modules
+	- dysf.utils
 	- express 
 		- If you see errors after installing express globally, use <code>export NODE_PATH=/usr/local/lib/node_modules
 </code>
