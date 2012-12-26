@@ -241,8 +241,10 @@ function initState()
 		console.log("initState(): getting SC Username");
 		SC.storage().setItem('SC.accessToken', getState().sctoken);
 		getSCUserName();
+	} else {
+		scDisconnected();
 	}
-	
+		
 	refreshCode();
 }
 
