@@ -260,7 +260,13 @@ $(document).bind('pageinit', function () {
 	if(inited) return;
 	inited = true;
 	
-	window.addEventListener('storage', storageHandler, false);	 
+	window.addEventListener('storage', storageHandler, false);	
+	
+	$.ajaxSetup({
+    	type: 'POST',
+    	headers: { "cache-control": "no-cache" }
+	});
+
 
 
 	$('#sccode').css({'height': '9em', 'font-size':'12px', 'width':'100%'});
