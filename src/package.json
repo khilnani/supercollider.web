@@ -6,8 +6,8 @@
 	"dependencies": {
 		"express": "3.x",
 		"forever": "0.10.x",		
-	        "dysf.utils": "0.x.x",
-		"soundclouder": "0.x.x"
+	        "dysf.utils": "0.0.7",
+		"soundclouder": "0.0.2"
 	},
 	"engines": {
 		"node": " 0.8.x"
