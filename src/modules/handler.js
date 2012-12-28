@@ -168,18 +168,29 @@ handler.sc = function (request, response)
   	log.event("/sc Started. sccode=" + sccode);  	
 
   	
-  	scer.auth(sccode, function (e) {
-  		var replaceParams = {'%access_token%': scer.accesstoken() };
-		log.info('/sc access_token=' + scer.accesstoken());
-  		utils.renderFile(response, __dirname + '/..' + '/html/sc.html', replaceParams, function (err) {
-  			if(err) 
-  			{
-  				log.error("/sc Ended in error. sccode=" + sccode);
-				sendError(response, err);
-			} else {
-			  	log.event("/sc Ended. sccode=" + sccode);  	
-			}
-  		});
+  	scer.auth(sccode, function (e, accesstoken) {
+
+		if(e)
+		{
+			log.error("/sc Ended in error. sc.auth error.");
+			log.error(e);
+		}
+		else
+		{
+	  		var replaceParams = {'%access_token%': accesstoken };
+			log.info('/sc access_token=' + accesstoken );
+
+  			utils.renderFile(response, __dirname + '/..' + '/html/sc.html', replaceParams, function (err) 
+	  		{
+  				if(err) 
+  				{
+  					log.error("/sc Ended in error. sccode=" + sccode);
+					sendError(response, err);
+				} else {
+				  	log.event("/sc Ended. sccode=" + sccode);  	
+				}
+	  		});
+  		}
   	});
   	
 }
