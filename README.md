@@ -32,7 +32,7 @@ Requirements
 
 Installation
 ---------
-- Ensure /tmp/ is aviable as Read/Write
+- Ensure /tmp/ is available as Read/Write
 - Update <code>src/config.js</code>
 - Once the code has been pulled,ange dir to 'src' and run: <code>USAGE node sc-tweeter.js [CONFIG FILE] [PORT]</code>
 	- Example <code>node sc-tweeter.js config.js 8080</code>
