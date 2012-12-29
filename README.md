@@ -1,4 +1,4 @@
-sc_tweeter
+sc_tweeter [![Build Status](https://travis-ci.org/dysf/sc_tweeter.png?branch=master)](https://travis-ci.org/dysf/sc_tweeter)
 =========
 
 Node.js based web application to create audio files for SuperCollider tweets. Includes SoundCloud integration. May include Twitter integration.
