@@ -25,6 +25,8 @@ if(port && configFile)
 	
 	handler.setSoundClouder(scer);
 	
+	handler.setCodeMaxLength( config.code_max_length );	
+
 	app.configure(function () {
 		if( config.username ) {
 			app.use(

@@ -16,6 +16,7 @@ var audioPath = "/tmp/";
 var sc_startFile = "./templates/sc_start.scd";
 var sc_midFile = "./templates/sc_mid.scd";	
 var sc_endFile = "./templates/sc_end.scd";
+var maxlength = 500;
 
 //--------------------------------------------
 
@@ -27,6 +28,11 @@ handler.setSoundClouder = function (_scer)
 {
 	log.debug("handler.setSoundClouder");
 	scer = _scer;
+}
+
+handler.setCodeMaxLength = function  ( _maxlength )
+{
+	maxlength = _maxlength;
 }
 
 
@@ -49,14 +55,14 @@ handler.process = function (request, response)
 	var sc_data = "";
 	var sclang_startup_time = 10;
 	var sclang_timeout = 10;	
-	
+
 	log.info("guid: " + guid);
 	log.info("sccode: " + sc_txt);
 	
-	if( sc_txt.length > 140  )
+	if( sc_txt.length > maxlength  )
 	{
-		log.error("Code is longer than 140 characters: " + guid);    		
-		sendJsonError(response, 'Code is longer than 140 characters.');
+		log.error("Code cannor be longer than " + maxlength + " characters. guid: " + guid);	
+		sendJsonError(response, 'Code cannot be longer than ' + maxlength + ' characters.');
 		return;
 	}
 
