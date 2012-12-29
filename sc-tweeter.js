@@ -12,7 +12,6 @@ var port = process.argv[3];
 
 if(port && configFile) 
 {
-
 	var express = require('express'),
 		http = require('http'),
 		scer = require("soundclouder"),
@@ -27,7 +26,13 @@ if(port && configFile)
 	handler.setSoundClouder(scer);
 	
 	app.configure(function () {
-		app.use(express.basicAuth( config.username , config.password  ));
+		if( config.username ) {
+			app.use(
+			express.basicAuth( config.username , config.password  )
+			)
+		} else {
+			log.system("Skipping basic auth.");
+		}
 		app.set("view options", {layout: false});
 		app.use(express.static(__dirname + '/html'));
 		app.use(express.bodyParser());
