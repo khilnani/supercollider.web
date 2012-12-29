@@ -26,6 +26,5 @@ badcode.list = [
 	"open", 
 	"parse",
 	"window",
-	"speak",
-	
+	"speak"
 ];
