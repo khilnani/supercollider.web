@@ -4,6 +4,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
+        	"vows": "0.7.0",
 		"express": "3.x",
 		"forever": "0.10.x",		
 		"dysf.utils": "0.0.7",
