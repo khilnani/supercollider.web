@@ -3,7 +3,6 @@
 
 var log = require("dysf.utils").logger;
 
-
 log.system("Starting " + __filename);
 
 var configFile = process.argv[2];
@@ -28,6 +27,7 @@ if(port && configFile)
 	handler.setSoundClouder(scer);
 	
 	app.configure(function () {
+		app.use(express.basicAuth( config.username , config.password  ));
 		app.set("view options", {layout: false});
 		app.use(express.static(__dirname + '/html'));
 		app.use(express.bodyParser());
