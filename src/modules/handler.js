@@ -5,6 +5,7 @@ var http = require("http"),
 	fs = require('fs'),
 	utils = require("dysf.utils").utils,
 	log = require("dysf.utils").logger,
+	v = require("./validator"),
 	handler = exports;
 
 //--------------------------------------------
@@ -37,7 +38,7 @@ handler.process = function (request, response)
 
 	var guid = (new Date()).getTime();
 
-	log.event("/process Started. guid=" + guid);  	
+	log.event("/process Started. ip: " + request.ip + " guid=" + guid);  	
 
 	var sc_start = "";
 	var sc_mid = "";	
@@ -48,6 +49,25 @@ handler.process = function (request, response)
 	var sc_data = "";
 	var sclang_startup_time = 10;
 	var sclang_timeout = 10;	
+	
+	log.info("guid: " + guid);
+	log.info("sccode: " + sc_txt);
+	
+	if( sc_txt.length > 140  )
+	{
+		log.error("Code is longer than 140 characters: " + guid);    		
+		sendJsonError(response, 'Code is longer than 140 characters.');
+		return;
+	}
+
+	var illegals = v.validate(sc_txt, guid);
+	
+	if( illegals.length > 0  )
+	{
+		log.error("Invalid SC code for guid: " + guid);    		
+		sendJsonError(response, 'Security Sandbox Violation: ' + illegals);
+		return;
+	}
 
 	if(typeof(duration) == "undefined" || duration == "NaN" || duration == "-1" || duration == "0")
 	{
@@ -61,10 +81,8 @@ handler.process = function (request, response)
 
 	var sclang_timeout = duration_seconds * 1000;
 
-	log.info("sccode: " + sc_txt);
 	log.info("duration: " + duration);
 	log.info("sclang_timeout: " + sclang_timeout);
-	log.info("guid: " + guid);
 	
 	fs.readFile(sc_startFile, function (err, data) {
 		if (err) 
