@@ -1,7 +1,7 @@
 //--------------------------------------------
 
 var log = require("dysf.utils").logger,
-	badcode = require("../config.badcode"),
+	illegals = require("../config/config.illegals"),
 	v = exports;
 	
 //--------------------------------------------
@@ -20,13 +20,13 @@ v.validate = function (code, guid)
 
 	var usage = [];
 	
-	log.trace("badcode.list: " + badcode.list);
-	badcode.list.forEach( function(val) {
+	log.trace("illegals.list: " + illegals.list);
+	illegals.list.forEach( function(val) {
 		//log.trace("Val: " + val);
 		if(code.indexOf(val.toLowerCase()) > -1)
 		{
 			usage.push( val );
-			log.warn("isValid(): guid: " + guid + " bad code found: " + val);
+			log.warn("isValid(): guid: " + guid + " illegal found: " + val);
 		}
 		
 	});

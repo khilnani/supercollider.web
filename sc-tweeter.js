@@ -18,7 +18,7 @@ if(port && configFile)
 		http = require('http'),
 		scer = require("soundclouder"),
 		handler = require("./modules/handler"),
-		config = require("./" + configFile),
+		config = require("./config/" + configFile),
 		app = express();
 		
 	log.setLogLevel( config.log_level );

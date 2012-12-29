@@ -1,7 +1,7 @@
 var assert = require('assert'),
 	vows = require('vows'),
 	log = require("dysf.utils").logger,
-	badcode = require("./testcode"),
+	testcode = require("./testcode"),
 	v = require("../modules/validator");
 	
 log.setLogLevel(6);

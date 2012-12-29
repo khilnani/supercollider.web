@@ -1,6 +1,6 @@
-badcode = exports;
+illegals = exports;
 
-badcode.list = [
+illegals.list = [
 	"unix",
 	"Cmd",
 	"runInTerminal",

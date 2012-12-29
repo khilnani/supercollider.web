@@ -89,14 +89,16 @@ Overview
 Codebase
 ---------
 
-- src: The code base for the application
-	- sc-tweeter.js: The main js file of the application
-	- config.js: Template config file that should contain SoundCloud client keys, Log levels etc.
-	- html: Publish html/js/css files accessible at http://server:port/
-	- modules: Custom modules for the application that handle request routing, utils, SoundCloud API etc.
-	- templates: Template SCD files used to generate SuperCollider code send to sclang
-- examples: Sample SuperCollider code that is created, along with the resulting audio.
-- test: Reference SuperCollider code that is used for standalone testing of SC integration. 
-- leftovers: Experiments, abandoned ideas etc. that may be of interest.
+- sc-tweeter.js: The main js file of the application
+- config
+	- config/config.js: Template config file that should contain SoundCloud client keys, Log levels etc.
+	- config.illegals.js: Illegal keywords
+- html: Publish html/js/css files accessible at http://server:port/
+- modules: Custom modules for the application that handle request routing, utils, SoundCloud API etc.
+- templates: Template SCD files used to generate SuperCollider code send to sclang
+- test: Vow tests and reference SuperCollider code that is used for standalone testing of SC integration. 
+- docs: misc stuff
+	- examples: Sample SuperCollider code that is created, along with the resulting audio.
+	- docs/leftovers: Experiments, abandoned ideas etc. that may be of interest.
 
 
