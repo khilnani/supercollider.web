@@ -49,16 +49,17 @@ Features
 Current Development State
 ---------
 
-- Web based entry of SuperCollider code
-- Generation of Audio based on command line execution of 'sclang'
+- Web based entry, validatiom and execution of SuperCollider code
 - Streaming of generated audio to the browser
+- Generation of Audio based on command line execution of 'sclang'
+- Supports Basic Auth security
 - State saving in the Browser using LocalStorage
 - SCCode.org Docs integration
 
 Planned Features
 ---------
 
-- SoundCloud integration to upload/store resulting audio.
+- IN PROGRESS - SoundCloud integration to upload/store resulting audio.
 - Twitter integration to post resulting tweet.
 
 
@@ -99,6 +100,6 @@ Codebase
 - test: Vow tests and reference SuperCollider code that is used for standalone testing of SC integration. 
 - docs: misc stuff
 	- examples: Sample SuperCollider code that is created, along with the resulting audio.
-	- docs/leftovers: Experiments, abandoned ideas etc. that may be of interest.
+	- leftovers: Experiments, abandoned ideas etc. that may be of interest.
 
 
