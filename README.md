@@ -1,4 +1,3 @@
-
 - [Instructions](#instructions)
 	- [Requirements](#requirements)
 	- [Installation](#installation)
@@ -10,7 +9,6 @@
 - [Technical Notes](#technical-notes)
 	- [Overview](#overview)
 	- [Codebase](#codebase)
-
 
 
 sc_tweeter [![Build Status](https://travis-ci.org/dysf/sc_tweeter.png?branch=master)](https://travis-ci.org/dysf/sc_tweeter)
