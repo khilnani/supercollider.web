@@ -69,7 +69,7 @@ Usage
 - If the SuperCollider code uses Tasks or Routines, it would need to compatible with being run within a Task.
 - Else, you will get an error message that is not very informative, specifically <code>ERROR: syntax error, unexpected '(', expecting '}'</code>
 - Examples
-	- The following code will give an error that
+	- The following code will give an error:
 	
 			(
 				{
@@ -82,7 +82,7 @@ Usage
 				}.fork
 			)
 			
-	- The code below will work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
+	- The code below *will* work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
 
 			SynthDef(\test, {
 				var st = SinOsc.ar();
