@@ -70,54 +70,61 @@ Usage
 - Else, you will get an error message that is not very informative, specifically <code>ERROR: syntax error, unexpected '(', expecting '}'</code>
 - Examples
 	- The following code will give an error:
-	
-			(
-				{
-					SynthDef(\test, {
-						var st = SinOsc.ar();
-						Out.ar(0,st!2);
-					}).add;
-					s.sync;
-					Synth(\test);
-				}.fork
-			)
-			
-	- The code below *will* work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
 
+
+	```
+	(
+		{
 			SynthDef(\test, {
 				var st = SinOsc.ar();
 				Out.ar(0,st!2);
 			}).add;
 			s.sync;
 			Synth(\test);
-			
+		}.fork
+	)
+	```
+
+	- The code below *will* work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
+
+	```
+	SynthDef(\test, {
+		var st = SinOsc.ar();
+		Out.ar(0,st!2);
+	}).add;
+	s.sync;
+	Synth(\test);
+	```	
+
 - As a reference, the resulting code the application sends to SCLang (SuperCollider) is more or less
 
-		s.waitForBoot({
-			Task.new ({
+```
+s.waitForBoot({
+	Task.new ({
 
-				s.sync; 
-				s.record(~path);
+		s.sync; 
+		s.record(~path);
 
-				//---- START - inserted by server ----
+		//---- START - inserted by server ----
 
-				SynthDef(\test, {
-					var st = SinOsc.ar();
-					Out.ar(0,st!2);
-				}).add;
-				s.sync;
-				Synth(\test);
+		SynthDef(\test, {
+			var st = SinOsc.ar();
+			Out.ar(0,st!2);
+		}).add;
+		s.sync;
+		Synth(\test);
 
-				//---- END - inserted by server ----
+		//---- END - inserted by server ----
 
-				(~length).wait;
-				s.stopRecording;
-				2.wait;
-				s.quit;
-				0.exit;
+		(~length).wait;
+		s.stopRecording;
+		2.wait;
+		s.quit;
+		0.exit;
 
-			}).play;
-		});
+	}).play;
+});
+```
 
 Screenshots
 =========
