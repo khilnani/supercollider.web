@@ -82,7 +82,7 @@ Usage
 				}.fork
 			)
 			
-	- The code below will work. *Note, only the encapsulating '({'  and '}.fork)' were removed.*
+	- The code below will work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
 
 			SynthDef(\test, {
 				var st = SinOsc.ar();
