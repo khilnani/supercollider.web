@@ -20,7 +20,6 @@ illegals.list = [
 	"buffer",
 	"regexp",
 	"rm",
-	"ls",
 	"ps",
 	"Relative", 
 	"open", 
