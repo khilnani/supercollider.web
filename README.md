@@ -1,3 +1,16 @@
+- [Instructions](#instructions)
+	- [Requirements](#requirements)
+	- [Installation](#installation)
+- [Features](#features)
+	- [Current Development State](#current-development-state)
+	- [Planned Features](#planned-features)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Technical Notes](#technical-notes)
+	- [Overview](#overview)
+	- [Codebase](#codebase)
+
+
 sc_tweeter [![Build Status](https://travis-ci.org/dysf/sc_tweeter.png?branch=master)](https://travis-ci.org/dysf/sc_tweeter)
 =========
 
@@ -25,8 +38,7 @@ Requirements
 	- dysf.utils
 	- soundclouder.js
 	- express 
-		- If you see errors after installing express globally, use <code>export NODE_PATH=/usr/local/lib/node_modules
-</code>
+		- If you see errors after installing express globally, use `export NODE_PATH=/usr/local/lib/node_modules`
 	- forever
 
 
@@ -34,12 +46,12 @@ Installation
 ---------
 - Ensure /tmp/ is available as Read/Write
 - Update <code>src/config.js</code>
-- Once the code has been pulled,ange dir to 'src' and run: <code>USAGE node sc-tweeter.js [CONFIG FILE] [PORT]</code>
-	- Example <code>node sc-tweeter.js config.js 8080</code>
+- Once the code has been pulled,ange dir to 'src' and run: `USAGE node sc-tweeter.js [CONFIG FILE] [PORT]`
+	- Example `node sc-tweeter.js config.js 8080`
 - If you want to run the process in the background, you can 
-  - Install the forever module - <code>npm install forever</code>
-  - Run <code>forever start sc-tweeter.js [CONFIG FILE] [PORT]</code>. 
-  	- Example <code>forever start sc-tweeter.js config.js 8080</code>
+  - Install the forever module - `npm install forever`
+  - Run `forever start sc-tweeter.js [CONFIG FILE] [PORT]`. 
+  	- Example `forever start sc-tweeter.js config.js 8080`
 
 Features
 =========
@@ -63,6 +75,69 @@ Planned Features
 - Twitter integration to post resulting tweet.
 
 
+Usage
+=========
+
+- The application wraps SuperCollider code submitted into a Task. 
+- If the SuperCollider code uses Tasks or Routines, it would need to compatible with being run within a Task.
+- Else, you will get an error message that is not very informative, specifically <code>ERROR: syntax error, unexpected '(', expecting '}'</code>
+- Examples
+	- The following code will give an error:
+
+
+	```
+	(
+		{
+			SynthDef(\test, {
+				var st = SinOsc.ar();
+				Out.ar(0,st!2);
+			}).add;
+			s.sync;
+			Synth(\test);
+		}.fork
+	)
+	```
+
+	- The code below *will* work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
+
+	```
+	SynthDef(\test, {
+		var st = SinOsc.ar();
+		Out.ar(0,st!2);
+	}).add;
+	s.sync;
+	Synth(\test);
+	```	
+
+- As a reference, the resulting code the application sends to SCLang (SuperCollider) is more or less
+
+```
+s.waitForBoot({
+	Task.new ({
+
+		s.sync; 
+		s.record(~path);
+
+		//---- START - inserted by server ----
+
+		SynthDef(\test, {
+			var st = SinOsc.ar();
+			Out.ar(0,st!2);
+		}).add;
+		s.sync;
+		Synth(\test);
+
+		//---- END - inserted by server ----
+
+		(~length).wait;
+		s.stopRecording;
+		2.wait;
+		s.quit;
+		0.exit;
+
+	}).play;
+});
+```
 
 Screenshots
 =========
