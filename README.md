@@ -11,7 +11,7 @@
 	- [Codebase](#codebase)
 
 
-sc_tweeter [![Build Status](https://travis-ci.org/dysf/sc_tweeter.png?branch=master)](https://travis-ci.org/dysf/sc_tweeter)
+supercollider.web [![Build Status](https://travis-ci.org/dysf/supercollider.web.png?branch=master)](https://travis-ci.org/dysf/supercollider.web)
 =========
 
 Node.js based web application to create audio files for SuperCollider. Includes SoundCloud integration. May include Twitter integration.
@@ -46,12 +46,12 @@ Installation
 ---------
 - Ensure /tmp/ is available as Read/Write
 - Update <code>src/config.js</code>
-- Once the code has been pulled,ange dir to 'src' and run: `USAGE node sc-tweeter.js [CONFIG FILE] [PORT]`
-	- Example `node sc-tweeter.js config.js 8080`
+- Once the code has been pulled,ange dir to 'src' and run: `USAGE node supercollider.web.js [CONFIG FILE] [PORT]`
+	- Example `node supercollider.web.js config.js 8080`
 - If you want to run the process in the background, you can 
   - Install the forever module - `npm install forever`
-  - Run `forever start sc-tweeter.js [CONFIG FILE] [PORT]`. 
-  	- Example `forever start sc-tweeter.js config.js 8080`
+  - Run `forever start supercollider.web.js [CONFIG FILE] [PORT]`. 
+  	- Example `forever start supercollider.web.js config.js 8080`
 
 Features
 =========
@@ -142,13 +142,13 @@ s.waitForBoot({
 Screenshots
 =========
 
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_0.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_1.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_2.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_3.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_4.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_5.png" width="40%" />
-<img src="https://raw.github.com/dysf/sc_tweeter/master/docs/image_6.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_0.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_1.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_2.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_3.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_4.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_5.png" width="40%" />
+<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_6.png" width="40%" />
 
 
 Technical Notes
@@ -165,7 +165,7 @@ Overview
 Codebase
 ---------
 
-- sc-tweeter.js: The main js file of the application
+- supercollider.web.js: The main js file of the application
 - config
 	- config/config.js: Template config file that should contain SoundCloud client keys, Log levels etc.
 	- config.illegals.js: Illegal keywords
