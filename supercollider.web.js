@@ -1,5 +1,5 @@
 //----------------------------------------------
-// SC-tweeter
+
 
 var log = require("dysf.utils").logger;
 

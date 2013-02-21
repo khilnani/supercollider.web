@@ -1,6 +1,6 @@
 {
 	"name": "supercollider.web",
-	"description": "Develop SuperCollider Tweets on the go!",
+	"description": "Develop SuperCollider Tweets on the go !",
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
