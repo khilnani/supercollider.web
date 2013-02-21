@@ -6,7 +6,7 @@ var assert = require('assert'),
 	
 log.setLogLevel(6);
 
-vows.describe('sc-tweeter').addBatch({
+vows.describe('supercollider.web').addBatch({
   "When using the application ": {
     "sending insecure sc code": {
       "should  error": function () {
