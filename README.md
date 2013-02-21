@@ -72,7 +72,7 @@ Planned Features
 ---------
 
 - IN PROGRESS - SoundCloud integration to upload/store resulting audio.
-- Twitter integration to post resulting tweet.
+- Twitter integration to post resulting audio.
 
 
 Usage
