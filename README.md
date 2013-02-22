@@ -11,7 +11,7 @@
 	- [Codebase](#codebase)
 
 
-supercollider.web [![Build Status](https://travis-ci.org/dysf/supercollider.web.png?branch=master)](https://travis-ci.org/dysf/supercollider.web)
+supercollider.web [![Build Status](https://travis-ci.org/dysf/supercollider.web.png)](https://travis-ci.org/dysf/supercollider.web)
 =========
 
 Node.js based web application to create audio files for SuperCollider. Includes SoundCloud integration. May include Twitter integration.
