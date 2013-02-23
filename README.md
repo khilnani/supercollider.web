@@ -46,12 +46,13 @@ Installation
 ---------
 - Ensure /tmp/ is available as Read/Write
 - Update <code>src/config.js</code>
-- Once the code has been pulled,ange dir to 'src' and run: `USAGE node supercollider.web.js [CONFIG FILE] [PORT]`
-	- Example `node supercollider.web.js config.js 8080`
+- Once the code has been pulled, change your working directory to 'src'
+- run: `USAGE node supercollider.js [CONFIG FILE] [PORT]`
+	- Example `node supercollider.js config.js 8080`
 - If you want to run the process in the background, you can 
   - Install the forever module - `npm install forever`
-  - Run `forever start supercollider.web.js [CONFIG FILE] [PORT]`. 
-  	- Example `forever start supercollider.web.js config.js 8080`
+  - Run `forever start supercollider.js [CONFIG FILE] [PORT]`. 
+  	- Example `forever start supercollider.js config.js 8080`
 
 Features
 =========
@@ -165,16 +166,18 @@ Overview
 Codebase
 ---------
 
-- supercollider.web.js: The main js file of the application
-- config
-	- config/config.js: Template config file that should contain SoundCloud client keys, Log levels etc.
-	- config.illegals.js: Illegal keywords
-- html: Publish html/js/css files accessible at http://server:port/
-- modules: Custom modules for the application that handle request routing, utils, SoundCloud API etc.
-- templates: Template SCD files used to generate SuperCollider code send to sclang
-- test: Vow tests and reference SuperCollider code that is used for standalone testing of SC integration. 
+- src
+	- supercollider.web.js: The main js file of the application
+	- config
+		- config.js: Template config file that should contain SoundCloud client keys, Log levels etc.
+		- config.illegals.js: Illegal keywords
+	- html: Publish html/js/css files accessible at http://server:port/
+	- modules: Custom modules for the application that handle request routing, utils, SoundCloud API etc.
+	- templates: Template SCD files used to generate SuperCollider code send to sclang
+- tests: Vow and PhantomJS tests
 - docs: misc stuff
 	- examples: Sample SuperCollider code that is created, along with the resulting audio.
 	- leftovers: Experiments, abandoned ideas etc. that may be of interest.
+	- misc: Reference SuperCollider code that is used for standalone testing of SC integration. 
 
 
