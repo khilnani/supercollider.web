@@ -1,6 +1,6 @@
 {
 	"name": "supercollider.web",
-	"description": "Develop SuperCollider Tweets on the go !",
+	"description": "Develop SuperCollider on the go !",
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
@@ -14,6 +14,6 @@
 		"node": " 0.8.x"
 	},
 	"scripts": {
-        	"test": "vows test-vows/test.js --spec"
+        	"test": "vows tests/vows/test.js --spec"
 	}
 }
