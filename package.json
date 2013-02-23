@@ -4,7 +4,6 @@
 	"version": "0.0.1",
 	"private": true,
 	"dependencies": {
-		"phantom": "1.8.1-3",
         	"vows": "0.7.0",
 		"express": "3.x",
 		"forever": "0.10.x",		
@@ -15,6 +14,6 @@
 		"node": " 0.8.x"
 	},
 	"scripts": {
-        	"test": "vows --spec"
+        	"test": "vows test-vows/test.js --spec"
 	}
 }
