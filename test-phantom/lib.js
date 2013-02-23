@@ -1,0 +1,6 @@
+
+function testLib ()
+{
+	return "YES";
+}
+
