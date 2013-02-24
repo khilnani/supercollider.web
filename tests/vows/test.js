@@ -2,7 +2,7 @@ var assert = require('assert'),
 	vows = require('vows'),
 	log = require("dysf.utils").logger,
 	testcode = require("./testcode"),
-	v = require("../src/modules/validator");
+	v = require("../../src/modules/validator");
 	
 log.setLogLevel(6);
 
