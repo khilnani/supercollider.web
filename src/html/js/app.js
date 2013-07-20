@@ -1,4 +1,3 @@
-
 //---------------------------------------
 
 var inited=false;
@@ -373,7 +372,7 @@ $(document).bind('pageinit', function () {
 
 		SC.initialize({
 			client_id: '8298c1d316d40cd38954c7f44375c675',
-			redirect_uri: 'http://dev.dysf.co:8080/sc',
+			redirect_uri: '/sc',
 			display: 'popup'
 		});
 		
