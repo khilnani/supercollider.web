@@ -1,5 +1,7 @@
 var config = exports;
 
+config.basePath =   	"/node/";
+
 config.username = 		"";
 config.password = 		"";
 
