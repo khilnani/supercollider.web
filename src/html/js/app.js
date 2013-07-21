@@ -6,6 +6,10 @@ var scconnected = false;
 var logIntervalId = -1;
 var timerSeconds = 0;
 
+var scConfig = {};
+scConfig.client_id = undefined;
+scConfig.redirect_uri = undefined;
+
 //---------------------------------------
 
 
@@ -374,8 +378,8 @@ $(document).bind('pageinit', function () {
     		console.log("Attempting to connect to SoundCloud. ");
 
 		SC.initialize({
-			client_id: '8298c1d316d40cd38954c7f44375c675',
-			redirect_uri: '/sc',
+			client_id: scConfig.client_id,
+			redirect_uri: scConfig.redirect_uri,
 			display: 'popup'
 		});
 		
@@ -399,7 +403,19 @@ $(document).bind('pageinit', function () {
 	});
 	
 	// Kickoff state restore, testing the SoundCloud connection etc.
-	initState();
+	var jqxhr = $.getJSON( "/scconfig", function(data) {
+  		console.log( "/scconfig SUCCESS": + data.client_id + ", " + data.redirect_uri);
+  		
+		scConfig.client_id = data.client_id;
+		scConfig.redirect_uri = data.redirect_uri;
+
+  		
+  		initState();
+	})
+	.fail(function() { 
+		console.log( "/scconfig" ERROR: + data );	
+	});
+	
 
 
 });
