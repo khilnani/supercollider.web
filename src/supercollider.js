@@ -40,9 +40,9 @@ if(port && configFile)
 		app.use(express.bodyParser());
 	});
 	
-	app.post('/process',handler.process);
-	app.get('/render', handler.render);
-	app.get('/sc', handler.sc);
+	app.post(config.basePath + '/process',handler.process);
+	app.get(config.basePath + '/render', handler.render);
+	app.get(config.basePath + '/sc', handler.sc);
 	
 	var server = http.createServer(app);
 	
