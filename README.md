@@ -62,8 +62,8 @@ Features
 Current Development State
 ---------
 
-- Web based entry, validatiom and execution of SuperCollider code
-- Streaming of generated audio to the browser
+- Web based entry, validation and execution of SuperCollider code
+- Streaming of generated audio
 - Generation of Audio based on command line execution of 'sclang'
 - Supports Basic Auth security
 - State saving in the Browser using LocalStorage
@@ -72,9 +72,9 @@ Current Development State
 Planned Features
 ---------
 
-- IN PROGRESS - SoundCloud integration to upload/store resulting audio.
+- SoundCloud integration to upload/store resulting audio.
 - Twitter integration to post resulting audio.
-
+- Realtime interaction with the SuperCollider application via web sockets to facilitate live coding.
 
 Usage
 =========
