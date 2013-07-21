@@ -38,7 +38,7 @@ handler.setCodeMaxLength = function  ( _maxlength )
 
 //--------------------------------------------
 
-handler.getSCConfig = function (request, response)
+handler.scconfig = function (request, response)
 {
 	var guid = (new Date()).getTime();
 
