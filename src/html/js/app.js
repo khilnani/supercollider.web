@@ -88,43 +88,42 @@ function logTimer ()
 
 //---------------------------------------
 
-function setGuid(guid)
+function setLocalStorageItem(key, value)
 {
 	try
 	{
-		localStorage.setItem("guid", guid);
-		console.log("setGuid: guid: " + guid);          
+		if(value == null || value == "null")
+		{
+			localStorage.removeItem(key);
+			console.log("localStorage.removeItem: " + key);
+		}
+		else
+		{
+			localStorage.setItem(key, value);
+			console.log("localStorage.setItem: " + key + ": " + value);			
+		}
 	}
 	catch(e)
 	{
-		console.log("setGuid: Unable to save: " + guid);
+		console.log("localStorage.setItem: Unable to save: " + key + " : " +  value);
 	}
+}
+
+//---------------------------------------
+
+function setGuid(guid)
+{
+	setLocalStorageItem("guid", guid);
 }
 
 function setCode(code)
 {
-	try
-	{
-		localStorage.setItem("code", code);
-		console.log("setCode: code: " + code);          
-	}
-	catch(e)
-	{
-		console.log("setCode: Unable to save: " + code);
-	}
+	setLocalStorageItem("code", code);
 }
 
 function setToken(sctoken)
 {
-	try
-	{
-		localStorage.setItem("sctoken", sctoken);
-		console.log("setToken: sctoken: " + sctoken);           
-	}
-	catch(e)
-	{
-		console.log("setToken: Unable to save: " + sctoken);
-	}
+	setLocalStorageItem("sctoken", sctoken);
 }
 
 
