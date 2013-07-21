@@ -326,7 +326,7 @@ $(document).bind('pageinit', function () {
                                 refreshLogView( data.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
                         }
                         else
-                        {       console("Log not Recieved." );
+                        {       console.log("Log not Recieved." );
                                 refreshLogView();
                         }
 
