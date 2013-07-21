@@ -403,7 +403,7 @@ $(document).bind('pageinit', function () {
 	});
 	
 	// Kickoff state restore, testing the SoundCloud connection etc.
-	var jqxhr = $.getJSON( "/scconfig", function(data) {
+	var jqxhr = $.getJSON( "scconfig", function(data) {
   		console.log( "/scconfig SUCCESS: " + data.client_id + ", " + data.redirect_uri);
   		
 		scConfig.client_id = data.client_id;
