@@ -7,7 +7,7 @@
         	"vows": "0.7.0",
 		"express": "3.x",
 		"forever": "0.10.x",		
-		"dysf.utils": "0.0.8",
+		"dysf.utils": "0.0.9",
 		"soundclouder": "0.0.5"
 	},
 	"engines": {
