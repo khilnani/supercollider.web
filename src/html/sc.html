@@ -19,9 +19,9 @@
     
     function onPageLoad()
     {
-		setToken('%access_token%');
+	setToken('%access_token%');
 					
-		window.opener.setTimeout(window.opener.SC.connectCallback, 10);
+	window.opener.setTimeout(window.opener.SC.connectCallback, 10);
     	window.setTimeout(window.close, 500); // Safari bug where the window does not close
     }
     
