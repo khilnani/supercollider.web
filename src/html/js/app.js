@@ -136,9 +136,9 @@ function getState()
 		code : localStorage.getItem("code")
 	};
 	
-	o.sctoken = (o.sctoken == null) ? undefined : o.sctoken;
-	o.guid = (o.guid == null) ? undefined : o.guid;
-	o.code = (o.code == null) ? undefined : o.code;
+	o.sctoken = (o.sctoken == null || o.sctoken == "null") ? undefined : o.sctoken;
+	o.guid = (o.guid == null || o.guid == "null") ? undefined : o.guid;
+	o.code = (o.code == null || o.code == "null") ? undefined : o.code;
 	
 	var d = "";
 		d += "sctoken: " + o.sctoken + "<br/>";
