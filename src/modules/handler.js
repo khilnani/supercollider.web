@@ -38,6 +38,25 @@ handler.setCodeMaxLength = function  ( _maxlength )
 
 //--------------------------------------------
 
+handler.getSCCConfig = function (request, response)
+{
+	var guid = (new Date()).getTime();
+
+	log.event("/scconfig Started. ip: " + request.ip + " guid=" + guid); 
+
+	
+	var r = {
+		client_id: scer.getConfig().client_id,
+		redirect_uri: scer.getConfig().redirect_uri, 
+		guid: guid
+	};
+    	    			    	    			
+	response.json(r);
+
+    	    					
+	log.event("/scconfig ended. guid=" + guid);  
+}
+
 
 handler.process = function (request, response) 
 {
@@ -119,11 +138,11 @@ handler.process = function (request, response)
 			    	
 					if(err) 
 					{
-			    				log.error("Error saving to '" + getScd(guid) + "'");    		
+			    			log.error("Error saving to '" + getScd(guid) + "'");    		
 			    	    		sendJsonError(response, err);
-			    	}
+			    		}
     	    
-						log.info("Saved to '" + getScd(guid) + "'");
+					log.info("Saved to '" + getScd(guid) + "'");
     	    
     	    				var options = { 
   						timeout: sclang_timeout
