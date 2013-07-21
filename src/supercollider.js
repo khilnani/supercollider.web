@@ -43,6 +43,7 @@ if(port && configFile)
 	app.post('/process',handler.process);
 	app.get('/render', handler.render);
 	app.get('/sc', handler.sc);
+	app.get('scconfig', handler.getSCConfig);
 	
 	var server = http.createServer(app);
 	
