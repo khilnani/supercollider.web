@@ -327,7 +327,7 @@ $(document).bind('pageinit', function () {
                         }
                         else
                         {       console.log("Log not Recieved." );
-                                refreshLogView();
+                                refreshLogView("Log not Recieved. It's likely the application encountered an error.");
                         }
 
                         var guid = "";
