@@ -368,7 +368,7 @@ $(document).bind('pageinit', function () {
     		console.log("Attempting to playback. guid: " + guid);
 
 		if(guid && guid != "")
-			window.location.href = "/render?guid=" + guid;
+			window.location.href = "render?guid=" + guid;
 		else
 			alert('Please execute code before attempting to listen.');
 	});
