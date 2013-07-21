@@ -320,7 +320,7 @@ $(document).bind('pageinit', function () {
 		jqXHR.done( function( data ) {
                         console.log("jqXHR.done.");
 
-                        if(data.log)
+                        if(data.log && data.log != "")
                         {
                                 console.log("Log Recieved: \n" + data.log);
                                 refreshLogView( data.log + "\n\nRecorded audio duration: " + $('#duration').val() + " second(s).\n\n" );
