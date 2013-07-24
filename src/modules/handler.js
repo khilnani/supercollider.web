@@ -6,6 +6,7 @@ var http = require("http"),
 	utils = require("dysf.utils").utils,
 	log = require("dysf.utils").logger,
 	v = require("./validator"),
+	Q = require('q'),
 	handler = exports;
 
 //--------------------------------------------
@@ -108,81 +109,82 @@ handler.process = function (request, response)
 
 	log.info("duration: " + duration);
 	log.info("sclang_timeout: " + sclang_timeout);
-	
-	fs.readFile(sc_startFile, function (err, data) {
-		if (err) 
-			sendJsonError(response, err);
 
+
+	function readStartFile ()
+	{
+		return Q.nfcall(fs.readFile, sc_startFile);
+	}
+
+	function readMidFile (data)
+	{
 		sc_start = data;
+		return Q.nfcall(fs.readFile, sc_midFile);
+	}
 
-		fs.readFile(sc_midFile, function (err, data) {
-			if (err) 
-		    		sendJsonError(response, err);
+	function readEndFile (data)
+	{
+		sc_mid = data;
+		return Q.nfcall(fs.readFile, sc_endFile);
+	}
+
+	function writeSCFile(data)
+	{
+                sc_end = data;
+
+                sc_params = "~path = \"" + getAudioPath(guid) + "\";\n";
+                sc_params += "~length = " + duration + ";";
+
+                sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
+
+                log.trace("Attempting to save: \n" + sc_data);
 	
-			sc_mid = data;
-			
-			fs.readFile(sc_endFile, function (err, data) {
-				if (err) 
-					sendJsonError(response, err);
+		return Q.nfcall(fs.writeFile, getScd(guid), sc_data);
 
-				sc_end = data;
-				
-				sc_params = "~path = \"" + getAudioPath(guid) + "\";\n";
-				sc_params += "~length = " + duration + ";";
-				
-				sc_data = sc_start + sc_params + sc_mid + sc_txt + sc_end;
-				
-				log.trace("Attempting to save: \n" + sc_data);
-				
-				fs.writeFile( getScd(guid) , sc_data, function(err) {
-			    	
-					if(err) 
-					{
-			    			log.error("Error saving to '" + getScd(guid) + "'");    		
-			    	    		sendJsonError(response, err);
-			    		}
-    	    
-					log.info("Saved to '" + getScd(guid) + "'");
-    	    
-    	    				var options = { 
-  						timeout: sclang_timeout
-  					 };
-					
-					log.info("Executing sclang " + getScd(guid) + " with timeout: " + sclang_timeout);
-  						
-    	    				exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
-    	    		
-    	    					log.info("sclang stdout:\n" + stdout);
+	}
+
+	function wrapUp(data)
+	{
+                var options = {
+                          timeout: sclang_timeout
+                };
+
+                log.info("Executing sclang " + getScd(guid) + " with timeout: " + sclang_timeout);
+
+                 exec("sclang " + getScd(guid), options, function (error, stdout, stderr) {
+
+                 	log.info("sclang stdout:\n" + stdout);
  
-    	    					if(error) 
-    	    					{
-    	    						log.error("sclang stderr:\n" + stderr);
-    	    						sendJsonError(response, stdout);
+                 	if(error)
+                 	{
+                              log.error("sclang stderr:\n" + stderr);
+                              sendJsonError(response, stdout);
+                        }
+                        else
+                        {
+                              var r = {
+                                     log: stdout,
+                                     guid: guid
+                              };
 
-    	    					}
-    	    					else
-    	    					{
-    	    						var r = {
-    	    							log: stdout,
-    	    							guid: guid
-    	    						};
-    	    			    	    			
-    	    						response.json(r);
-    	    					}
-    	    					
-								log.event("/process ended. guid=" + guid);  	
+                              response.json(r);
+                        }
+
+                        log.event("/process ended. guid=" + guid);
 
 
-							}); 
+                });
+	}
 
-				});			
-				
-	
-			});
-
-		});
-
-	});
+	readStartFile()
+	.then(readMidFile)
+	.then(readEndFile)
+	.then(writeSCFile)
+	.then(wrapUp)
+	.fail(function (err) {
+		log.error("Error saving to '" + getScd(guid) + "'");
+		sendJsonError(response, err);
+	});	
 
 }
 
