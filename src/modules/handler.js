@@ -7,6 +7,7 @@ var http = require("http"),
 	log = require("dysf.utils").logger,
 	v = require("./validator"),
 	Q = require('q'),
+	qs = require("querystring"),
 	handler = exports;
 
 //--------------------------------------------
@@ -205,6 +206,51 @@ handler.render = function (request, response)
 
 //--------------------------------------------
 
+handler.addTrackToSC = function (request, response)
+{
+        var guid = request.body.guid;
+	var sccode = request.body.code;
+	var oauth_token = request.body.sctoken;
+
+        log.event("/addTrackToSC guid=" + guid + " oauth_token: " + oauth_token);
+
+	fs.readFile( getAudioPath(guid), function (err, data) {
+
+	        log.event("/addTrackToSC guid=" + guid + " file data Error?: " + err);
+
+		if(err) {
+                        sendError(response,err);
+		}
+		else
+		{
+			var base64data = new Buffer(data).toString('base64');
+
+			//log.event("data: " + base64data);
+
+			scer.post('/tracks', oauth_token, {
+				title: guid,
+				description: sccode,
+				asset_data: base64data
+			},
+			function (err, data) {
+				log.event('/handler.addTrackToSC callback: ');
+				log.info(data);
+
+                              	var r = {
+                                     	url: (err) ?  undefined : data.permalink_url,
+					guid: guid
+                              	};
+
+                              	response.json(r);
+
+			});
+		}
+
+	});
+}
+
+//--------------------------------------------
+
 handler.sc = function (request, response) 
 {
 
@@ -252,7 +298,7 @@ function getAudioName(guid)
 	return guid + ".aiff";
 }
 
-function getAudioPath(guid) 
+function getAudioPath(guid)
 {
 	return audioPath + getAudioName(guid);
 }

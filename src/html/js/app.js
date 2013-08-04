@@ -1,7 +1,10 @@
 //---------------------------------------
 
 var inited=false;
+
 var running = false;
+var uploading = false;
+
 var scconnected = false;
 var logIntervalId = -1;
 var timerSeconds = 0;
@@ -307,7 +310,10 @@ $(document).bind('pageinit', function () {
 		}
 		
 		running = true;
-		
+                $('#execute').val('Executing...');
+                $('#execute').button("refresh");
+
+	
     		console.log("Sending SC Code via jqXHR.");
 
 
@@ -356,6 +362,8 @@ $(document).bind('pageinit', function () {
 			
 			clearLogTimer();
 			running = false;
+	                $('#execute').val('Execute Code');
+        	        $('#execute').button("refresh");
 
                         console.log("SC Code execution attempt completed.");
 		});
@@ -388,6 +396,68 @@ $(document).bind('pageinit', function () {
 			console.log("Connected to SoundCloud");
 			//alert("Connected to SoundCloud");
 		});
+	});
+
+	$('#scupload').on('click', function () {
+
+		if(uploading == true)
+		{
+			alert('An upload is already in progress.');
+		}
+
+                var s = getState();
+
+                console.log("Attempting to Upload guid: " + s.guid + " sctoken: " + s.sctoken);
+
+                if(s.guid && s.guid != "")
+		{
+
+			uploading = true;
+                
+			$('#scupload').val('Uploading...');
+			$('#scupload').button("refresh");
+
+		    	var jqXHR = $.post('/addTrackToSC', $.param(s) );
+
+			jqXHR.done( function( data ) {
+        	                console.log("jqXHR.done.");
+
+                	        if(data.url && data.url != "")
+                        	{
+                                	console.log("Track Url Recieved: " + data.url);
+	                        	$('#scuploadlabel').html("Track Url Recieved: " + data.url );
+				}
+                	        else
+                        	{
+			        	console.log("Track Url not recieved." );
+					console.log(data);
+					$('#scuploadlabel').html("Track Url not recieved" );
+                	        }
+
+			});
+
+			jqXHR.fail( function( data ) {
+                	        console.log("jqXHR.fail: " + data);
+
+			});
+
+			jqXHR.always( function( data ) {
+				console.log("jqXHR.always: " + data);
+
+				uploading = false;
+
+				$('#scupload').val('Upload');
+				$('#scupload').button("refresh");
+
+                      	  	console.log("Uploading attempt completed.");
+			});
+
+		}
+		else
+		{
+                        alert('Please execute code before attempting to upload.');
+		}
+
 	});
 
 

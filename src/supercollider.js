@@ -44,6 +44,7 @@ if(port && configFile)
 	app.get('/render', handler.render);
 	app.get('/sc', handler.sc);
 	app.get('/scconfig', handler.scconfig);
+	app.post('/addTrackToSC', handler.addTrackToSC);
 	
 	var server = http.createServer(app);
 	
