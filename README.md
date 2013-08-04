@@ -149,7 +149,6 @@ Screenshots
 <img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_3.png" width="40%" />
 <img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_4.png" width="40%" />
 <img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_5.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_6.png" width="40%" />
 
 
 Technical Notes
