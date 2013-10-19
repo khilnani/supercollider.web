@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Supercollider.web by khilnani</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Supercollider.web</h1>
+        <p>Node.js based web application to create audio files for SuperCollider, with SoundCloud and Twitter integration.</p>
+
+        <p class="view"><a href="https://github.com/khilnani/supercollider.web">View the Project on GitHub <small>khilnani/supercollider.web</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/khilnani/supercollider.web/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/khilnani/supercollider.web/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/khilnani/supercollider.web">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="supercolliderweb-" class="anchor" href="#supercolliderweb-"><span class="octicon octicon-link"></span></a>supercollider.web <a href="https://travis-ci.org/khilnani/supercollider.web"><img src="https://travis-ci.org/khilnani/supercollider.web.png" alt="Build Status"></a>
+</h1>
+
+<p>Node.js based web application to create audio files for SuperCollider, with SoundCloud and Twitter integration.</p>
+
+<p>Thanks to the following people for feedback, suggestions, technical insight and sanity checks. In alphabetical order -</p>
+
+<ul>
+<li>Batuhan Bozkurt - <a href="http://www.earslap.com">http://www.earslap.com</a>
+</li>
+<li>Charlie Roberts - <a href="http://www.charlie-roberts.com">http://www.charlie-roberts.com</a>
+</li>
+<li>crucialfelix - <a href="https://github.com/crucialfelix">https://github.com/crucialfelix</a>, <a href="https://soundcloud.com/crucialfelix">https://soundcloud.com/crucialfelix</a>
+</li>
+<li>Metin Yerlikaya</li>
+<li>Nicholas Starke - <a href="http://www.nickstarke.com">http://www.nickstarke.com</a>, <a href="https://soundcloud.com/nicholas-starke">https://soundcloud.com/nicholas-starke</a>
+</li>
+<li>Schemawound - <a href="http://schemawound.com/">http://schemawound.com/</a>, <a href="https://soundcloud.com/schemawound">https://soundcloud.com/schemawound</a>
+</li>
+</ul><h1>
+<a name="instructions" class="anchor" href="#instructions"><span class="octicon octicon-link"></span></a>Instructions</h1>
+
+<h2>
+<a name="requirements-" class="anchor" href="#requirements-"><span class="octicon octicon-link"></span></a>Requirements </h2>
+
+<ul>
+<li>Node.js</li>
+<li>SuperCollider</li>
+<li>Node.js Modules
+
+<ul>
+<li>dysf.utils</li>
+<li>soundclouder.js</li>
+<li>express 
+
+<ul>
+<li>If you see errors after installing express globally, use <code>export NODE_PATH=/usr/local/lib/node_modules</code>
+</li>
+</ul>
+</li>
+<li>forever</li>
+</ul>
+</li>
+</ul><h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Ensure /tmp/ is available as Read/Write</li>
+<li>Update <code>src/config.js</code>
+</li>
+<li>Once the code has been pulled, change your working directory to 'src'</li>
+<li>run: <code>USAGE node supercollider.js [CONFIG FILE] [PORT]</code>
+
+<ul>
+<li>Example <code>node supercollider.js config.js 8080</code>
+</li>
+</ul>
+</li>
+<li>If you want to run the process in the background, you can 
+
+<ul>
+<li>Install the forever module - <code>npm install forever</code>
+</li>
+<li>Run <code>forever start supercollider.js [CONFIG FILE] [PORT]</code>. </li>
+<li>Example <code>forever start supercollider.js config.js 8080</code>
+</li>
+</ul>
+</li>
+</ul><h1>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h1>
+
+<blockquote>
+<p><strong>NOTE - The code is very early in development and is not safe to run on any public web server as it could expose your server to security/hacks.</strong></p>
+</blockquote>
+
+<h2>
+<a name="current-development-state" class="anchor" href="#current-development-state"><span class="octicon octicon-link"></span></a>Current Development State</h2>
+
+<ul>
+<li>Web based entry, validation and execution of SuperCollider code</li>
+<li>Streaming of generated audio</li>
+<li>Generation of Audio based on command line execution of 'sclang'</li>
+<li>Supports Basic Auth security</li>
+<li>State saving in the Browser using LocalStorage</li>
+<li>SCCode.org Docs integration</li>
+</ul><h2>
+<a name="planned-features" class="anchor" href="#planned-features"><span class="octicon octicon-link"></span></a>Planned Features</h2>
+
+<ul>
+<li>SoundCloud integration to upload/store resulting audio.</li>
+<li>Twitter integration to post resulting audio.</li>
+<li>Realtime interaction with the SuperCollider application via web sockets to facilitate live coding.</li>
+</ul><h1>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h1>
+
+<ul>
+<li>The application wraps SuperCollider code submitted into a Task. </li>
+<li>If the SuperCollider code uses Tasks or Routines, it would need to compatible with being run within a Task.</li>
+<li>Else, you will get an error message that is not very informative, specifically <code>ERROR: syntax error, unexpected '(', expecting '}'</code>
+</li>
+<li>
+<p>Examples</p>
+
+<ul>
+<li>The following code will give an error:</li>
+</ul>
+<pre><code>(
+    {
+        SynthDef(\test, {
+            var st = SinOsc.ar();
+            Out.ar(0,st!2);
+        }).add;
+        s.sync;
+        Synth(\test);
+    }.fork
+)
+</code></pre>
+
+<ul>
+<li>The code below <em>will</em> work. <em>Note, only the encapsulating <code>'({'</code>  and <code>'}.fork)'</code> were removed.</em>
+</li>
+</ul>
+<pre><code>SynthDef(\test, {
+    var st = SinOsc.ar();
+    Out.ar(0,st!2);
+}).add;
+s.sync;
+Synth(\test);
+</code></pre>
+</li>
+<li><p>As a reference, the resulting code the application sends to SCLang (SuperCollider) is more or less</p></li>
+</ul><pre><code>s.waitForBoot({
+    Task.new ({
+
+        s.sync; 
+        s.record(~path);
+
+        //---- START - inserted by server ----
+
+        SynthDef(\test, {
+            var st = SinOsc.ar();
+            Out.ar(0,st!2);
+        }).add;
+        s.sync;
+        Synth(\test);
+
+        //---- END - inserted by server ----
+
+        (~length).wait;
+        s.stopRecording;
+        2.wait;
+        s.quit;
+        0.exit;
+
+    }).play;
+});
+</code></pre>
+
+<h1>
+<a name="screenshots" class="anchor" href="#screenshots"><span class="octicon octicon-link"></span></a>Screenshots</h1>
+
+<p><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_0.png" width="40%"><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_1.png" width="40%"><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_2.png" width="40%"><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_3.png" width="40%"><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_4.png" width="40%"><img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_5.png" width="40%"></p>
+
+<h1>
+<a name="technical-notes" class="anchor" href="#technical-notes"><span class="octicon octicon-link"></span></a>Technical Notes</h1>
+
+<h2>
+<a name="overview" class="anchor" href="#overview"><span class="octicon octicon-link"></span></a>Overview</h2>
+
+<ul>
+<li>The application allows a user to submit SuperCollider code via a form. </li>
+<li>The submitted code is then inserted into a template that facilitates command line execution of SuperCollider (sclang) to generate audio.</li>
+<li>Audio is generated in 16bit 44.1kHz AIFF format.</li>
+<li>Via a post-redirect-get pattern, audio is streamed to the browser.</li>
+</ul><h2>
+<a name="codebase" class="anchor" href="#codebase"><span class="octicon octicon-link"></span></a>Codebase</h2>
+
+<ul>
+<li>src
+
+<ul>
+<li>supercollider.web.js: The main js file of the application</li>
+<li>config
+
+<ul>
+<li>config.js: Template config file that should contain SoundCloud client keys, Log levels etc.</li>
+<li>config.illegals.js: Illegal keywords</li>
+</ul>
+</li>
+<li>html: Publish html/js/css files accessible at http://server:port/</li>
+<li>modules: Custom modules for the application that handle request routing, utils, SoundCloud API etc.</li>
+<li>templates: Template SCD files used to generate SuperCollider code send to sclang</li>
+</ul>
+</li>
+<li>tests: Vow and PhantomJS tests</li>
+<li>docs: misc stuff
+
+<ul>
+<li>examples: Sample SuperCollider code that is created, along with the resulting audio.</li>
+<li>leftovers: Experiments, abandoned ideas etc. that may be of interest.</li>
+<li>misc: Reference SuperCollider code that is used for standalone testing of SC integration. </li>
+</ul>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/khilnani">khilnani</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
