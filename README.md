@@ -1,5 +1,8 @@
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [supercollider.web [![Build Status](https://travis-ci.org/khilnani/supercollider.web.png)](https://travis-ci.org/khilnani/supercollider.web)](#supercolliderweb-!build-statushttpstravis-ciorgkhilnanisupercolliderwebpnghttpstravis-ciorgkhilnanisupercolliderweb)
 - [Instructions](#instructions)
-	- [Requirements](#requirements)
+	- [Requirements ](#requirements)
 	- [Installation](#installation)
 - [Features](#features)
 	- [Current Development State](#current-development-state)
@@ -9,7 +12,6 @@
 - [Technical Notes](#technical-notes)
 	- [Overview](#overview)
 	- [Codebase](#codebase)
-
 
 supercollider.web [![Build Status](https://travis-ci.org/khilnani/supercollider.web.png)](https://travis-ci.org/khilnani/supercollider.web)
 =========
