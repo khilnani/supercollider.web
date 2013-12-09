@@ -16,7 +16,7 @@
 supercollider.web [![Build Status](https://travis-ci.org/khilnani/supercollider.web.png)](https://travis-ci.org/khilnani/supercollider.web)
 =========
 
-Node.js based web application to create audio files for SuperCollider, with SoundCloud and Twitter integration.
+Node.js based web application to create audio files for SuperCollider, with SoundCloud integration.
 
 
 Thanks to the following people for feedback, suggestions, technical insight and sanity checks. In alphabetical order -
@@ -75,7 +75,6 @@ Planned Features
 ---------
 
 - SoundCloud integration to upload/store resulting audio.
-- Twitter integration to post resulting audio.
 - Realtime interaction with the SuperCollider application via web sockets to facilitate live coding.
 
 Usage
