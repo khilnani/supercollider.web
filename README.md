@@ -84,9 +84,7 @@ Usage
 - If the SuperCollider code uses Tasks or Routines, it would need to compatible with being run within a Task.
 - Else, you will get an error message that is not very informative, specifically <code>ERROR: syntax error, unexpected '(', expecting '}'</code>
 - Examples
-	- The following code will give an error:
-
-
+	- The following code will give the error: `ERROR: syntax error, unexpected '(', expecting '}'`
 	```
 	(
 		{
@@ -99,17 +97,18 @@ Usage
 		}.fork
 	)
 	```
-
-	- The code below *will* work. *Note, only the encapsulating `'({'`  and `'}.fork)'` were removed.*
-
+	- Thats because its missing a `;` at the end. The code below works:
 	```
-	SynthDef(\test, {
-		var st = SinOsc.ar();
-		Out.ar(0,st!2);
-	}).add;
-	s.sync;
-	Synth(\test);
-	```	
+	(
+		{
+			SynthDef(\test, {
+				var st = SinOsc.ar();
+				Out.ar(0,st!2);
+			}).add;
+			s.sync;
+			Synth(\test);
+		}.fork
+	);
 
 - As a reference, the resulting code the application sends to SCLang (SuperCollider) is more or less
 
