@@ -74,7 +74,8 @@ Current Development State
 Planned Features
 ---------
 
-- SoundCloud integration to upload/store resulting audio.
+- Post code to Twitter.
+- SoundCloud integration to upload/store resulting audio. Post resulting track url to Twitter.
 - Realtime interaction with the SuperCollider application via web sockets to facilitate live coding.
 
 Usage
