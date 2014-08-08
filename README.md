@@ -144,12 +144,12 @@ s.waitForBoot({
 Screenshots
 =========
 
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_0.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_1.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_2.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_3.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_4.png" width="40%" />
-<img src="https://raw.github.com/dysf/supercollider.web/master/docs/image_5.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_0.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_1.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_2.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_3.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_4.png" width="40%" />
+<img src="https://raw.github.com/khilnani/supercollider.web/master/docs/image_5.png" width="40%" />
 
 
 Technical Notes
